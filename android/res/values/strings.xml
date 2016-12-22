@@ -2,5 +2,5 @@
 <resources>
 
     <string name="app_name">Prop Game</string>
-
+    <string name="test">Test</string>
 </resources>
