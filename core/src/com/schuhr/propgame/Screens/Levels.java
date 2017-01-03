@@ -1,9 +1,5 @@
 package com.schuhr.propgame.Screens;
 
-/**
- * Created by schuh on 12/6/2016.
- */
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -25,40 +21,48 @@ import com.schuhr.propgame.Sprites.Mary;
 import com.schuhr.propgame.Tools.B2WorldCreator;
 import com.schuhr.propgame.Tools.WorldContactListener;
 
-public class PlayScreen implements Screen {
+/**
+ * Created by schuhr on 1/3/2017.
+ */
 
-    private PropGame game;
-    private TextureAtlas atlas;
+public class Levels implements Screen {
 
-    private OrthographicCamera gameCam;
-    private Hud hud;
+    protected PropGame game;
+    protected TextureAtlas atlas;
+
+    protected OrthographicCamera gameCam;
+    protected Hud hud;
 
     //TiledMapVariables
-    private TmxMapLoader mapLoader;
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
+    protected TmxMapLoader mapLoader;
+    protected TiledMap map;
+    protected OrthogonalTiledMapRenderer renderer;
 
     //Box2dVariables
-    private World world;
-    private Box2DDebugRenderer b2dr;
-    private B2WorldCreator creator;
+    protected World world;
+    protected Box2DDebugRenderer b2dr;
+    protected B2WorldCreator creator;
 
-    private Mary player;
+    protected Mary player;
 
-    private Viewport gamePort;
+    protected Viewport gamePort;
 
-    private Music music;
+    protected Music music;
 
-    public PlayScreen(PropGame game) {
+    protected String levelName;
+
+    public Levels(PropGame game){
+        this.game = game;
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
 
-        this.game = game;
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(PropGame.V_WIDTH / PropGame.PPM, PropGame.V_HEIGHT / PropGame.PPM, gameCam);
+
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("level1.tmx");
+        map = mapLoader.load("level" + game.GetLevel() + ".tmx");
+
         renderer = new OrthogonalTiledMapRenderer(map, 1 / PropGame.PPM);
 
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
@@ -72,17 +76,31 @@ public class PlayScreen implements Screen {
 
         world.setContactListener(new WorldContactListener());
 
-        music = PropGame.manager.get("audio/music/mario_music.ogg", Music.class);
-        music.setLooping(true);
-        music.play();
-
+        SetMusic();
     }
 
     public TextureAtlas getAtlas() {
         return atlas;
     }
 
-    private int count = 0;
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    private void SetMusic(){
+        switch(game.GetLevel()){
+            case 1:
+                music = PropGame.manager.get("audio/music/mario_music.ogg", Music.class);
+                break;
+        }
+
+        music.setLooping(true);
+        music.play();
+    }
 
     public void handleInput(float dt) {
         if (player.currentState != Mary.State.DEAD) {
@@ -105,6 +123,7 @@ public class PlayScreen implements Screen {
             if ((accelY < 1) && player.b2body.getLinearVelocity().x >= -2) {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             }
+            //player.b2body.applyLinearImpulse(new Vector2(.1f,0), player.b2body.getWorldCenter(), true);
         }
     }
 
@@ -123,18 +142,6 @@ public class PlayScreen implements Screen {
             gameCam.position.x = player.b2body.getPosition().x;
         gameCam.update();
         renderer.setView(gameCam);
-    }
-
-    @Override
-    public void show() {
-
-    }
-
-    public boolean gameOver() {
-        if (player.currentState == Mary.State.DEAD && player.getStateTimer() > 3)
-            return true;
-        else
-            return false;
     }
 
     @Override
@@ -164,16 +171,20 @@ public class PlayScreen implements Screen {
     }
 
     @Override
+    public void show() {
+
+    }
+
+    public boolean gameOver() {
+        if (player.currentState == Mary.State.DEAD && player.getStateTimer() > 3)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
-    }
-
-    public TiledMap getMap() {
-        return map;
-    }
-
-    public World getWorld() {
-        return world;
     }
 
     @Override

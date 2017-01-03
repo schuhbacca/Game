@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.schuhr.propgame.PropGame;
-import com.schuhr.propgame.Screens.PlayScreen;
+import com.schuhr.propgame.Screens.Levels;
 
 /**
  * Created by schuh on 12/12/2016.
@@ -24,7 +24,7 @@ public class Goomba extends Enemy {
     private boolean setToDestroy;
     private boolean destroyed;
 
-    public Goomba(PlayScreen screen, float x, float y) {
+    public Goomba(Levels screen, float x, float y) {
         super(screen, x, y);
         frames = new Array<TextureRegion>();
         for (int i = 0; i < 2; i++) {

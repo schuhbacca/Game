@@ -52,7 +52,8 @@ public class GameOverScreen implements Screen {
     @Override
     public void render(float delta) {
         if(Gdx.input.justTouched()){
-            game.setScreen(new PlayScreen((PropGame)game));
+            ((PropGame)game).SetLevel();
+            //game.setScreen(new Levels((PropGame)game));
             dispose();
         }
         Gdx.gl.glClearColor(0,0,0,1);

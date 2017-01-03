@@ -1,15 +1,13 @@
 package com.schuhr.propgame;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Game;
-import com.schuhr.propgame.Screens.PlayScreen;
+import com.schuhr.propgame.Screens.*;
 
 public class PropGame extends Game {
     public SpriteBatch batch;
@@ -29,8 +27,13 @@ public class PropGame extends Game {
 
     public static AssetManager manager;
 
+    Preferences prefs;
+
     @Override
     public void create() {
+        prefs = Gdx.app.getPreferences("SETTINGS");
+        prefs.putInteger("Level", 1);
+        prefs.flush();
         batch = new SpriteBatch();
         manager = new AssetManager();
         manager.load("audio/music/mario_music.ogg", Music.class);
@@ -39,7 +42,16 @@ public class PropGame extends Game {
         manager.load("audio/sounds/breakblock.wav", Sound.class);
         manager.load("audio/sounds/mariodie.wav", Sound.class);
         manager.finishLoading();
-        setScreen(new PlayScreen(this));
+        SetLevel();
+    }
+
+    public void SetLevel(){
+        int level = prefs.getInteger("Level");
+        setScreen(new Levels(this));
+    }
+
+    public int GetLevel(){
+        return prefs.getInteger("Level");
     }
 
     @Override

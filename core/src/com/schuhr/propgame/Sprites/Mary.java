@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.schuhr.propgame.PropGame;
-import com.schuhr.propgame.Screens.PlayScreen;
+import com.schuhr.propgame.Screens.Levels;
 
 /**
  * Created by schuh on 12/10/2016.
@@ -39,8 +39,8 @@ public class Mary extends Sprite {
     private boolean runningRight;
     private boolean marioIsDead;
 
-    public Mary(PlayScreen screen) {
-        super(screen.getAtlas().findRegion("MareBear"));
+    public Mary(Levels screen) {
+        super(screen.getAtlas().findRegion("little_mario"));
         this.world = screen.getWorld();
         currentState = State.STANDING;
         previousState = State.STANDING;
@@ -49,7 +49,7 @@ public class Mary extends Sprite {
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < 3; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("MareBear"), i * 16, 0, 16, 16));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("little_mario"), i * 16, 0, 16, 16));
         }
         marioRun = new Animation(0.1f, frames);
         frames.clear();
@@ -59,7 +59,7 @@ public class Mary extends Sprite {
         }
         marioJump = new Animation(0.1f, frames);
 
-        marioStand = new TextureRegion(screen.getAtlas().findRegion("MareBear"), 0, 0, 16, 16);
+        marioStand = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 0, 0, 16, 16);
 
         marioDead = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 96, 0, 16, 16);
 

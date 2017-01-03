@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.schuhr.propgame.PropGame;
-import com.schuhr.propgame.Screens.PlayScreen;
+import com.schuhr.propgame.Screens.*;
 import com.schuhr.propgame.Sprites.Brick;
 import com.schuhr.propgame.Sprites.Coin;
 import com.schuhr.propgame.Sprites.Goomba;
@@ -24,7 +24,7 @@ public class B2WorldCreator {
 
     private Array<Goomba> goombas;
 
-    public B2WorldCreator(PlayScreen screen) {
+    public B2WorldCreator(Levels screen) {
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
         BodyDef bdef = new BodyDef();
