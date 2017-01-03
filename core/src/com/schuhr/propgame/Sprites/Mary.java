@@ -39,8 +39,11 @@ public class Mary extends Sprite {
     private boolean runningRight;
     private boolean marioIsDead;
 
+    private Levels screen;
+
     public Mary(Levels screen) {
         super(screen.getAtlas().findRegion("little_mario"));
+        this.screen = screen;
         this.world = screen.getWorld();
         currentState = State.STANDING;
         previousState = State.STANDING;
@@ -149,8 +152,8 @@ public class Mary extends Sprite {
     }
 
     public void hit(){
-        PropGame.manager.get("audio/music/mario_music.ogg", Music.class).stop();
-        PropGame.manager.get("audio/sounds/mariodie.wav", Sound.class).play();
+        screen.getGame().manager.get("audio/music/mario_music.ogg", Music.class).stop();
+        screen.getGame().manager.get("audio/sounds/mariodie.wav", Sound.class).play();
         marioIsDead = true;
         Filter filter = new Filter();
         filter.maskBits = PropGame.NOTHING_BIT;

@@ -27,9 +27,9 @@ public class Coin extends InteractiveTileObject {
     public void onHeadHit() {
         Gdx.app.log("Coin", "Collision");
         if(getCell().getTile().getId() == BLANK_COIN){
-            PropGame.manager.get("audio/sounds/bump.wav", Sound.class).play();
+            game.manager.get("audio/sounds/bump.wav", Sound.class).play();
         }else{
-            PropGame.manager.get("audio/sounds/coin.wav", Sound.class).play();
+            game.manager.get("audio/sounds/coin.wav", Sound.class).play();
         }
         getCell().setTile(tileSet.getTile(BLANK_COIN));
         Hud.addScore(100);

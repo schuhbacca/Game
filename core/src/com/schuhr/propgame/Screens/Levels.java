@@ -1,6 +1,7 @@
 package com.schuhr.propgame.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -51,7 +52,7 @@ public class Levels implements Screen {
 
     protected String levelName;
 
-    public Levels(PropGame game){
+    public Levels(PropGame game) {
         this.game = game;
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
 
@@ -91,11 +92,19 @@ public class Levels implements Screen {
         return world;
     }
 
-    private void SetMusic(){
-        switch(game.GetLevel()){
+    public PropGame getGame() {
+        return game;
+    }
+
+    private void SetMusic() {
+        switch (game.GetLevel()) {
             case 1:
-                music = PropGame.manager.get("audio/music/mario_music.ogg", Music.class);
+                music = game.manager.get("audio/music/mario_music.ogg", Music.class);
                 break;
+            default:
+                music = game.manager.get("audio/music/mario_music.ogg", Music.class);
+                ;
+
         }
 
         music.setLooping(true);
@@ -105,25 +114,22 @@ public class Levels implements Screen {
     public void handleInput(float dt) {
         if (player.currentState != Mary.State.DEAD) {
             float accelY = Gdx.input.getAccelerometerY();
-            //if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            //player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
-            //}
+
             if (Gdx.input.justTouched()) {
                 player.jump();
             }
-            //if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
-            //player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            //}
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
+                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+            }
             if ((accelY > -1) && player.b2body.getLinearVelocity().x <= 2) {
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             }
-            //if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
-            //player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
-            //}
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
+                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+            }
             if ((accelY < 1) && player.b2body.getLinearVelocity().x >= -2) {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             }
-            //player.b2body.applyLinearImpulse(new Vector2(.1f,0), player.b2body.getWorldCenter(), true);
         }
     }
 
@@ -164,7 +170,7 @@ public class Levels implements Screen {
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-        if(gameOver()) {
+        if (gameOver()) {
             game.setScreen(new GameOverScreen(game));
             dispose();
         }
@@ -176,7 +182,8 @@ public class Levels implements Screen {
     }
 
     public boolean gameOver() {
-        if (player.currentState == Mary.State.DEAD && player.getStateTimer() > 3)
+        if (player.currentState == Mary.State.DEAD && player.getStateTimer() > 3
+                || (player.b2body.getPosition().y < (-100 / PropGame.PPM)))
             return true;
         else
             return false;

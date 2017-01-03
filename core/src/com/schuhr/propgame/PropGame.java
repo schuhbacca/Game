@@ -25,7 +25,7 @@ public class PropGame extends Game {
     public static final short ENEMY_BIT = 64;
     public static final short ENEMY_HEAD_BIT = 128;
 
-    public static AssetManager manager;
+    public AssetManager manager;
 
     Preferences prefs;
 
@@ -42,11 +42,6 @@ public class PropGame extends Game {
         manager.load("audio/sounds/breakblock.wav", Sound.class);
         manager.load("audio/sounds/mariodie.wav", Sound.class);
         manager.finishLoading();
-        SetLevel();
-    }
-
-    public void SetLevel(){
-        int level = prefs.getInteger("Level");
         setScreen(new Levels(this));
     }
 

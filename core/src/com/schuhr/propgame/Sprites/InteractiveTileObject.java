@@ -19,6 +19,7 @@ import com.schuhr.propgame.Screens.*;
  */
 
 public abstract class InteractiveTileObject {
+    protected PropGame game;
     protected World world;
     protected TiledMap map;
     protected TiledMapTile tile;
@@ -27,6 +28,7 @@ public abstract class InteractiveTileObject {
     protected Fixture fixture;
 
     public InteractiveTileObject(Levels screen, Rectangle bounds){
+        this.game = screen.getGame();
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;

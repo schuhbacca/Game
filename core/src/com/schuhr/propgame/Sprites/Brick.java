@@ -24,6 +24,6 @@ public class Brick extends InteractiveTileObject {
         setCategoryFilter(PropGame.DESTROYED_BIT);
         getCell().setTile(null);
         Hud.addScore(200);
-        PropGame.manager.get("audio/sounds/breakblock.wav", Sound.class).play();
+        game.manager.get("audio/sounds/breakblock.wav", Sound.class).play();
     }
 }
