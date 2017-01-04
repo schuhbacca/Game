@@ -103,8 +103,7 @@ public class Levels implements Screen {
                 break;
             default:
                 music = game.manager.get("audio/music/mario_music.ogg", Music.class);
-                ;
-
+                break;
         }
 
         music.setLooping(true);
