@@ -62,6 +62,7 @@ public class Levels implements Screen {
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
+
         map = mapLoader.load("level" + game.GetLevel() + ".tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map, 1 / PropGame.PPM);
@@ -75,7 +76,7 @@ public class Levels implements Screen {
 
         player = new Mary(this);
 
-        world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener(game));
 
         SetMusic();
     }

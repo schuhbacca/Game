@@ -20,13 +20,12 @@ public class Goomba extends Enemy {
 
     private float stateTime;
     private Animation walkAnimation;
-    private Array<TextureRegion> frames;
     private boolean setToDestroy;
     private boolean destroyed;
 
     public Goomba(Levels screen, float x, float y) {
         super(screen, x, y);
-        frames = new Array<TextureRegion>();
+        Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < 2; i++) {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
         }
@@ -67,7 +66,7 @@ public class Goomba extends Enemy {
                 PropGame.BRICK_BIT |
                 PropGame.ENEMY_BIT |
                 PropGame.OBJECT_BIT |
-                PropGame.MARIO_BIT;
+                PropGame.MARY_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

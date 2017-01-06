@@ -1,6 +1,8 @@
 package com.schuhr.propgame.Tools;
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -16,8 +18,11 @@ import com.schuhr.propgame.Sprites.Mary;
  */
 
 public class WorldContactListener implements ContactListener {
+    private PropGame game;
 
-
+    public WorldContactListener(PropGame game){
+        this.game = game;
+    }
 
     @Override
     public void beginContact(Contact contact) {
@@ -36,7 +41,7 @@ public class WorldContactListener implements ContactListener {
         }
 
         switch (cdef) {
-            case PropGame.ENEMY_HEAD_BIT | PropGame.MARIO_BIT:
+            case PropGame.ENEMY_HEAD_BIT | PropGame.MARY_BIT:
                 if (fixA.getFilterData().categoryBits == PropGame.ENEMY_HEAD_BIT)
                     ((Enemy) fixA.getUserData()).hitOnHead();
                 else
@@ -48,8 +53,8 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((Enemy) fixB.getUserData()).reverseVelocity(true, false);
                 break;
-            case PropGame.MARIO_BIT | PropGame.ENEMY_BIT:
-                if(fixA.getFilterData().categoryBits == PropGame.MARIO_BIT)
+            case PropGame.MARY_BIT | PropGame.ENEMY_BIT:
+                if(fixA.getFilterData().categoryBits == PropGame.MARY_BIT)
                     ((Mary)fixA.getUserData()).hit();
                 else
                     ((Mary)fixB.getUserData()).hit();
@@ -57,6 +62,14 @@ public class WorldContactListener implements ContactListener {
             case PropGame.ENEMY_BIT | PropGame.ENEMY_BIT:
                 ((Enemy) fixA.getUserData()).reverseVelocity(true, false);
                 ((Enemy) fixB.getUserData()).reverseVelocity(true, false);
+                break;
+            case PropGame.MARY_BIT | PropGame.END_BIT:
+                Preferences prefs = Gdx.app.getPreferences("SETTINGS");
+                int level = prefs.getInteger("Level");
+                prefs.putInteger("Test",1);
+                //prefs.putInteger("Level", level++);
+                prefs.flush();
+                ((PropGame)game).CreateLevel();
                 break;
         }
     }

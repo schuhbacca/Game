@@ -132,13 +132,14 @@ public class Mary extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(6 / PropGame.PPM);
-        fdef.filter.categoryBits = PropGame.MARIO_BIT;
+        fdef.filter.categoryBits = PropGame.MARY_BIT;
         fdef.filter.maskBits = PropGame.GROUND_BIT |
                 PropGame.COIN_BIT |
                 PropGame.BRICK_BIT |
                 PropGame.OBJECT_BIT |
         PropGame.ENEMY_BIT |
-        PropGame.ENEMY_HEAD_BIT;
+        PropGame.ENEMY_HEAD_BIT |
+        PropGame.END_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

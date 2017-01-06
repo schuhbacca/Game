@@ -15,19 +15,19 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.schuhr.propgame.PropGame;
 
 /**
- * Created by schuh on 12/12/2016.
+ * Created by schuhr on 1/4/2017.
  */
 
-public class GameOverScreen implements Screen {
+public class LevelsIntro implements Screen {
     private Viewport viewport;
     private Stage stage;
 
     private Game game;
 
-    public GameOverScreen(Game game){
+    public LevelsIntro(PropGame game) {
         this.game = game;
         viewport = new FitViewport(PropGame.V_WIDTH, PropGame.V_HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, ((PropGame)game).batch);
+        stage = new Stage(viewport, ((PropGame) game).batch);
 
         Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 
@@ -35,14 +35,15 @@ public class GameOverScreen implements Screen {
         table.center();
         table.setFillParent(true);
 
-        Label gameOverLabel = new Label("GAME OVER",font);
-        Label playAgainLabel = new Label("Click to play again",font);
+        Label gameOverLabel = new Label("LEVEL: " + ((PropGame) game).GetLevel(), font);
+        Label playAgainLabel = new Label("Click to play!", font);
         table.add(gameOverLabel).expandX();
         table.row();
         table.add(playAgainLabel).expandX().padTop(10f);
 
         stage.addActor(table);
     }
+
 
     @Override
     public void show() {
@@ -51,11 +52,11 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if(Gdx.input.justTouched()){
+        if (Gdx.input.justTouched()) {
             game.setScreen(new Levels((PropGame) game));
             dispose();
         }
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
     }

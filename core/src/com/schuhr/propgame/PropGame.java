@@ -17,13 +17,14 @@ public class PropGame extends Game {
 
     public static final short NOTHING_BIT = 0;
     public static final short GROUND_BIT = 1;
-    public static final short MARIO_BIT = 2;
+    public static final short MARY_BIT = 2;
     public static final short BRICK_BIT = 4;
     public static final short COIN_BIT = 8;
     public static final short DESTROYED_BIT = 16;
     public static final short OBJECT_BIT = 32;
     public static final short ENEMY_BIT = 64;
     public static final short ENEMY_HEAD_BIT = 128;
+    public static final short END_BIT = 256;
 
     public AssetManager manager;
 
@@ -33,6 +34,7 @@ public class PropGame extends Game {
     public void create() {
         prefs = Gdx.app.getPreferences("SETTINGS");
         prefs.putInteger("Level", 1);
+        prefs.putInteger("Test", 0);
         prefs.flush();
         batch = new SpriteBatch();
         manager = new AssetManager();
@@ -42,7 +44,18 @@ public class PropGame extends Game {
         manager.load("audio/sounds/breakblock.wav", Sound.class);
         manager.load("audio/sounds/mariodie.wav", Sound.class);
         manager.finishLoading();
-        setScreen(new Levels(this));
+        setScreen(new Menu(this));
+        //CreateLevel();
+    }
+
+    public void CreateLevel(){
+        Gdx.app.log("Test", String.valueOf(prefs.getInteger("Test")));
+
+        if(GetLevel() != -1){
+            setScreen(new LevelsIntro(this));
+        }else{
+            setScreen(new GameOverScreen(this));
+        }
     }
 
     public int GetLevel(){
