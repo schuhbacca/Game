@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -34,13 +35,14 @@ public class LevelUnlock implements Screen, InputProcessor {
     private Stage stage;
     TextureAtlas atlas;
     Skin skin;
-    private String passcode;
-    private String passcodeAnswer = "8189";
+    Preferences prefs;
+    private String passcode = "";
 
     private PropGame game;
 
     public LevelUnlock(PropGame game) {
         this.game = game;
+        prefs = Gdx.app.getPreferences("SETTINGS");
         viewport = new FitViewport(PropGame.V_WIDTH, PropGame.V_HEIGHT, new OrthographicCamera());
         atlas = new TextureAtlas("Visui/uiskin.atlas");
         skin = new Skin(Gdx.files.internal("Visui/uiskin.json"), atlas);
@@ -75,9 +77,9 @@ public class LevelUnlock implements Screen, InputProcessor {
         //Create buttons
         TextButton[] buttons = new TextButton[9];
         for (int i = 0; i < 9; i++) {
-            buttons[i] = new TextButton(String.valueOf(i + 1), skin, "default");
+            buttons[i] = new TextButton(String.valueOf(i), skin, "default");
             //Add listeners to buttons
-            final int h = i + 1;
+            final int h = i;
             buttons[i].addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -103,13 +105,20 @@ public class LevelUnlock implements Screen, InputProcessor {
         stage.addActor(numberTable);
     }
 
-    public void CheckPasscode() {
-        if (passcode.equals(passcodeAnswer)) {
-            //Set the preference to -1 so the last level can be accessed
-        } else {
-            if (passcode.length() > 4) {
-                passcode = "";
-            }
+    private void CheckPasscode() {
+        int password = Integer.valueOf(passcode);
+        switch (password) {
+            case 8008:
+                prefs.putInteger("Level", 1);
+                break;
+            case 304:
+                prefs.putInteger("Last", 1);
+                break;
+            default:
+                break;
+        }
+        if (passcode.length() > 4) {
+            passcode = "";
         }
     }
 

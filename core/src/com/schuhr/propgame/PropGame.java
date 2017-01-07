@@ -45,7 +45,6 @@ public class PropGame extends Game {
         manager.load("audio/sounds/mariodie.wav", Sound.class);
         manager.finishLoading();
         setScreen(new Menu(this));
-        //CreateLevel();
     }
 
     public void CreateLevel(){
