@@ -1,5 +1,6 @@
 package com.schuhr.propgame.Screens;
 
+import com.schuhr.propgame.PropGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -15,12 +16,10 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.schuhr.propgame.PropGame;
 import com.schuhr.propgame.Scenes.Hud;
-import com.schuhr.propgame.Sprites.Enemy;
-import com.schuhr.propgame.Sprites.Mary;
-import com.schuhr.propgame.Tools.B2WorldCreator;
-import com.schuhr.propgame.Tools.WorldContactListener;
+import com.schuhr.propgame.Sprites.*;
+import com.schuhr.propgame.Tools.*;
+import com.schuhr.propgame.PropGame.Songs;
 
 /**
  * Created by schuhr on 1/3/2017.
@@ -100,10 +99,29 @@ public class Levels implements Screen {
     private void SetMusic() {
         switch (game.GetLevel()) {
             case 1:
-                music = game.manager.get("audio/music/mario_music.ogg", Music.class);
+                //music = game.manager.get("audio/music/mario_music.ogg", Music.class);
+                music = game.manager.get(Songs.Saviour.getValue(), Music.class);
                 break;
-            default:
-                music = game.manager.get("audio/music/mario_music.ogg", Music.class);
+            case 2:
+                music = game.manager.get(Songs.Sloth.getValue(), Music.class);
+                break;
+            case 3:
+                music = game.manager.get(Songs.YouBelongWithMe.getValue(), Music.class);
+                break;
+            case 4:
+                music = game.manager.get(Songs.Austin.getValue(), Music.class);
+                break;
+            case 5:
+                music = game.manager.get(Songs.IveBeenEverywhere.getValue(), Music.class);
+                break;
+            case 6:
+                music = game.manager.get(Songs.BonfireHeart.getValue(), Music.class);
+                break;
+            case 7:
+                music = game.manager.get(Songs.HeyThereDelilah.getValue(), Music.class);
+                break;
+            case 8:
+                music = game.manager.get(Songs.BestDayOfMyLife.getValue(), Music.class);
                 break;
         }
 

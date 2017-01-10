@@ -38,11 +38,7 @@ public class PropGame extends Game {
         prefs.flush();
         batch = new SpriteBatch();
         manager = new AssetManager();
-        manager.load("audio/music/mario_music.ogg", Music.class);
-        manager.load("audio/sounds/coin.wav", Sound.class);
-        manager.load("audio/sounds/bump.wav", Sound.class);
-        manager.load("audio/sounds/breakblock.wav", Sound.class);
-        manager.load("audio/sounds/mariodie.wav", Sound.class);
+        loadAssets();
         manager.finishLoading();
         setScreen(new Menu(this));
     }
@@ -57,6 +53,22 @@ public class PropGame extends Game {
         }
     }
 
+    public void loadAssets(){
+        manager.load(Songs.Austin.getValue(), Music.class);
+        manager.load(Songs.BestDayOfMyLife.getValue(), Music.class);
+        manager.load(Songs.BonfireHeart.getValue(), Music.class);
+        manager.load(Songs.HeyThereDelilah.getValue(), Music.class);
+        manager.load(Songs.IveBeenEverywhere.getValue(), Music.class);
+        manager.load(Songs.Saviour.getValue(), Music.class);
+        manager.load(Songs.Sloth.getValue(), Music.class);
+        manager.load(Songs.YouBelongWithMe.getValue(), Music.class);
+        manager.load("audio/music/mario_music.ogg", Music.class);
+        manager.load("audio/sounds/coin.wav", Sound.class);
+        manager.load("audio/sounds/bump.wav", Sound.class);
+        manager.load("audio/sounds/breakblock.wav", Sound.class);
+        manager.load("audio/sounds/mariodie.wav", Sound.class);
+    }
+
     public int GetLevel(){
         return prefs.getInteger("Level");
     }
@@ -69,5 +81,21 @@ public class PropGame extends Game {
     @Override
     public void dispose() {
         batch.dispose();
+        manager.dispose();
+    }
+
+    public enum Songs{
+        Saviour("audio/music/Saviour.mp3"),
+        Sloth("audio/music/SlothsRevenge.mp3"),
+        YouBelongWithMe("audio/music/YouBelongWithMe.mp3"),
+        Austin("audio/music/Austin.mp3"),
+        IveBeenEverywhere("audio/music/IveBeenEverywhere.mp3"),
+        BonfireHeart("audio/music/BonfireHeart.mp3"),
+        HeyThereDelilah("audio/music/HeyThereDelilah.mp3"),
+        BestDayOfMyLife("audio/music/BestDayOfMyLife.mp3");
+
+        private final String name;
+        Songs(String name) { this.name = name; }
+        public String getValue() { return name; }
     }
 }
