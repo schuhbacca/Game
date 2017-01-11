@@ -1,5 +1,7 @@
 package com.schuhr.propgame.Screens;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Input;
 import com.schuhr.propgame.PropGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -52,6 +54,8 @@ public class Levels implements Screen {
 
     protected String levelName;
 
+    boolean isAndroid = false;
+
     public Levels(PropGame game) {
         this.game = game;
         atlas = new TextureAtlas("Characters.pack");
@@ -81,6 +85,8 @@ public class Levels implements Screen {
         controller = new Controller(game);
 
         SetMusic();
+
+        isAndroid = (Gdx.app.getType() == Application.ApplicationType.Android);
     }
 
     public TextureAtlas getAtlas() {
@@ -134,35 +140,27 @@ public class Levels implements Screen {
 
     public void handleInput(float dt) {
         if (player.currentState != Mary.State.DEAD) {
-            float accelY = Gdx.input.getAccelerometerY();
-
-            /*if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             }
-            if ((accelY > -1) && player.b2body.getLinearVelocity().x <= 2) {
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            }*/
-            if(controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2){
+            if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2) {
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             }
 
-            /*if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             }
-            if ((accelY < 1) && player.b2body.getLinearVelocity().x >= -2) {
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
-            }*/
             if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2) {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             }
 
-            if(controller.isCanJump()){
+            if (controller.isCanJump()) {
                 player.jump();
                 controller.setCanJump(false);
             }
-            /*if (Gdx.input.justTouched()) {
+            if (Gdx.input.justTouched() && !isAndroid) {
                 player.jump();
-            }*/
+            }
         }
     }
 
@@ -193,7 +191,8 @@ public class Levels implements Screen {
 
         b2dr.render(world, gameCam.combined);
 
-        controller.draw();
+        if (isAndroid)
+            controller.draw();
 
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
@@ -217,17 +216,14 @@ public class Levels implements Screen {
     }
 
     public boolean gameOver() {
-        if (player.currentState == Mary.State.DEAD && player.getStateTimer() > 3
-                || (player.b2body.getPosition().y < (-100 / PropGame.PPM)))
-            return true;
-        else
-            return false;
+        return  (player.currentState == Mary.State.DEAD && player.getStateTimer() > 3
+                || (player.b2body.getPosition().y < (-100 / PropGame.PPM)));
     }
 
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
-        controller.resize(width,height);
+        controller.resize(width, height);
 
     }
 
