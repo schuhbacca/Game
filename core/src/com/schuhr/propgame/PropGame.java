@@ -54,14 +54,18 @@ public class PropGame extends Game {
     }
 
     public void loadAssets(){
-        manager.load(Songs.Austin.getValue(), Music.class);
+        /*manager.load(Songs.Austin.getValue(), Music.class);
         manager.load(Songs.BestDayOfMyLife.getValue(), Music.class);
         manager.load(Songs.BonfireHeart.getValue(), Music.class);
         manager.load(Songs.HeyThereDelilah.getValue(), Music.class);
         manager.load(Songs.IveBeenEverywhere.getValue(), Music.class);
         manager.load(Songs.Saviour.getValue(), Music.class);
         manager.load(Songs.Sloth.getValue(), Music.class);
-        manager.load(Songs.YouBelongWithMe.getValue(), Music.class);
+        manager.load(Songs.YouBelongWithMe.getValue(), Music.class);*/
+        for(Songs s : Songs.values())
+        {
+            manager.load(s.getValue(), Music.class);
+        }
         manager.load("audio/music/mario_music.ogg", Music.class);
         manager.load("audio/sounds/coin.wav", Sound.class);
         manager.load("audio/sounds/bump.wav", Sound.class);
@@ -93,6 +97,9 @@ public class PropGame extends Game {
         BonfireHeart("audio/music/BonfireHeart.mp3"),
         HeyThereDelilah("audio/music/HeyThereDelilah.mp3"),
         BestDayOfMyLife("audio/music/BestDayOfMyLife.mp3");
+        /*FoolsLove("audio/music/FoolsLove.mp3"),
+        SomethingWild("audio/music/SomethingWild.mp3"),
+        Hobbits("audio/music/Hobbits.mp3");*/
 
         private final String name;
         Songs(String name) { this.name = name; }

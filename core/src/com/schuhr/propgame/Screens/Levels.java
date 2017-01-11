@@ -1,5 +1,10 @@
 package com.schuhr.propgame.Screens;
 
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.schuhr.propgame.PropGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -49,6 +54,8 @@ public class Levels implements Screen {
 
     protected Music music;
 
+    protected Controller controller;
+
     protected String levelName;
 
     public Levels(PropGame game) {
@@ -76,6 +83,8 @@ public class Levels implements Screen {
         player = new Mary(this);
 
         world.setContactListener(new WorldContactListener(game));
+
+        controller = new Controller(game);
 
         SetMusic();
     }
@@ -133,21 +142,33 @@ public class Levels implements Screen {
         if (player.currentState != Mary.State.DEAD) {
             float accelY = Gdx.input.getAccelerometerY();
 
-            if (Gdx.input.justTouched()) {
-                player.jump();
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
+            /*if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             }
             if ((accelY > -1) && player.b2body.getLinearVelocity().x <= 2) {
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+            }*/
+            if(controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2){
+                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
+
+            /*if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             }
             if ((accelY < 1) && player.b2body.getLinearVelocity().x >= -2) {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+            }*/
+            if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2) {
+                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             }
+
+            if(controller.isCanJump()){
+                player.jump();
+                controller.setCanJump(false);
+            }
+            /*if (Gdx.input.justTouched()) {
+                player.jump();
+            }*/
         }
     }
 
@@ -177,6 +198,8 @@ public class Levels implements Screen {
         renderer.render();
 
         b2dr.render(world, gameCam.combined);
+
+        controller.draw();
 
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
@@ -210,6 +233,8 @@ public class Levels implements Screen {
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
+        controller.resize(width,height);
+
     }
 
     @Override
@@ -233,6 +258,7 @@ public class Levels implements Screen {
         renderer.dispose();
         world.dispose();
         b2dr.dispose();
+        controller.dispose();
         hud.dispose();
     }
 }
