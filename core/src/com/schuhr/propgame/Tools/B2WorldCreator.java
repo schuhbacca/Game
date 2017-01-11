@@ -107,9 +107,11 @@ public class B2WorldCreator {
         }
 
         goombas = new Array<Goomba>();
+        boolean enemy1 = true;
         for (MapObject object : map.getLayers().get(ObjectIndexes.Goombas.id).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            goombas.add(new Goomba(screen, rect.getX() / PropGame.PPM, rect.getY() / PropGame.PPM));
+            goombas.add(new Goomba(screen, rect.getX() / PropGame.PPM, rect.getY() / PropGame.PPM, enemy1));
+            enemy1 = !enemy1;
         }
     }
 

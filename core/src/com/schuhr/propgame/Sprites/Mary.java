@@ -31,18 +31,18 @@ public class Mary extends Sprite {
 
     public World world;
     public Body b2body;
-    private TextureRegion marioStand;
-    private TextureRegion marioDead;
-    private Animation marioRun;
-    private Animation marioJump;
+    private TextureRegion maryStand;
+    private TextureRegion maryDead;
+    private Animation maryRun;
+    private Animation maryJump;
     private float stateTimer;
     private boolean runningRight;
-    private boolean marioIsDead;
+    private boolean maryIsDead;
 
     private Levels screen;
 
     public Mary(Levels screen) {
-        super(screen.getAtlas().findRegion("little_mario"));
+        super(screen.getAtlas().findRegion("Mary"));
         this.screen = screen;
         this.world = screen.getWorld();
         currentState = State.STANDING;
@@ -52,23 +52,23 @@ public class Mary extends Sprite {
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < 3; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("little_mario"), i * 16, 0, 16, 16));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("Mary"), i * 16, 0, 16, 16));
         }
-        marioRun = new Animation(0.1f, frames);
-        frames.clear();
+        maryRun = new Animation(0.1f, frames);
+        /*frames.clear();
 
         for (int i = 4; i < 6; i++) {
             frames.add(new TextureRegion(getTexture(), i * 16, 0, 16, 16));
-        }
-        marioJump = new Animation(0.1f, frames);
+        }*/
+        maryJump = new Animation(0.3f, frames);
 
-        marioStand = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 0, 0, 16, 16);
+        maryStand = new TextureRegion(screen.getAtlas().findRegion("Mary"), 0, 0, 16, 16);
 
-        marioDead = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 96, 0, 16, 16);
+        maryDead = new TextureRegion(screen.getAtlas().findRegion("Mary"), 0, 0, 16, 16);
 
-        defineMario();
+        defineMary();
         setBounds(0, 0, 16 / PropGame.PPM, 16 / PropGame.PPM);
-        setRegion(marioStand);
+        setRegion(maryStand);
 
     }
 
@@ -83,18 +83,18 @@ public class Mary extends Sprite {
         TextureRegion region;
         switch (currentState){
             case DEAD:
-                region = marioDead;
+                region = maryDead;
                 break;
             case JUMPING:
-                region = marioJump.getKeyFrame(stateTimer);
+                region = maryJump.getKeyFrame(stateTimer);
                 break;
             case RUNNING:
-                region = marioRun.getKeyFrame(stateTimer, true);
+                region = maryRun.getKeyFrame(stateTimer, true);
                 break;
             case FALLING:
             case STANDING:
             default:
-                region = marioStand;
+                region = maryStand;
                 break;
         }
         if((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()){
@@ -110,7 +110,7 @@ public class Mary extends Sprite {
     }
 
     public State getState() {
-        if(marioIsDead)
+        if(maryIsDead)
             return State.DEAD;
         else if (b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) {
             return State.JUMPING;
@@ -123,7 +123,7 @@ public class Mary extends Sprite {
         }
     }
 
-    public void defineMario() {
+    public void defineMary() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(32 / PropGame.PPM, 32 / PropGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -155,7 +155,7 @@ public class Mary extends Sprite {
     public void hit(){
         screen.getGame().manager.get("audio/music/mario_music.ogg", Music.class).stop();
         screen.getGame().manager.get("audio/sounds/mariodie.wav", Sound.class).play();
-        marioIsDead = true;
+        maryIsDead = true;
         Filter filter = new Filter();
         filter.maskBits = PropGame.NOTHING_BIT;
         for(Fixture fixture : b2body.getFixtureList())
@@ -164,7 +164,7 @@ public class Mary extends Sprite {
     }
 
     public boolean isDead(){
-        return marioIsDead;
+        return maryIsDead;
     }
 
     public float getStateTimer(){

@@ -60,7 +60,7 @@ public class Levels implements Screen {
 
     public Levels(PropGame game) {
         this.game = game;
-        atlas = new TextureAtlas("Mario_and_Enemies.pack");
+        atlas = new TextureAtlas("Characters.pack");
 
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(PropGame.V_WIDTH / PropGame.PPM, PropGame.V_HEIGHT / PropGame.PPM, gameCam);
