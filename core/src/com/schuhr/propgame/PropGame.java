@@ -54,14 +54,6 @@ public class PropGame extends Game {
     }
 
     public void loadAssets(){
-        /*manager.load(Songs.Austin.getValue(), Music.class);
-        manager.load(Songs.BestDayOfMyLife.getValue(), Music.class);
-        manager.load(Songs.BonfireHeart.getValue(), Music.class);
-        manager.load(Songs.HeyThereDelilah.getValue(), Music.class);
-        manager.load(Songs.IveBeenEverywhere.getValue(), Music.class);
-        manager.load(Songs.Saviour.getValue(), Music.class);
-        manager.load(Songs.Sloth.getValue(), Music.class);
-        manager.load(Songs.YouBelongWithMe.getValue(), Music.class);*/
         for(Songs s : Songs.values())
         {
             manager.load(s.getValue(), Music.class);

@@ -107,29 +107,38 @@ public class Levels implements Screen {
 
     private void SetMusic() {
         switch (game.GetLevel()) {
-            case 1:
-                //music = game.manager.get("audio/music/mario_music.ogg", Music.class);
-                music = game.manager.get(Songs.Saviour.getValue(), Music.class);
+            case 1://Hiking Up North
+                music = game.manager.get(Songs.Sloth.getValue(), Music.class);
+                //music = game.manager.get(Songs.SomethingWild.getValue(), Music.class);
                 break;
-            case 2:
+            case 2://LOTR, Milkshakes, Italian
+                //music = game.manager.get(Songs.Hobbits.getValue(), Music.class);
+                break;
+            case 3://Traverse City
                 music = game.manager.get(Songs.Sloth.getValue(), Music.class);
                 break;
-            case 3:
+            case 4://Chill on the hill
+                music = game.manager.get(Songs.Saviour.getValue(), Music.class);
+                break;
+            case 5://Mary's Place
                 music = game.manager.get(Songs.YouBelongWithMe.getValue(), Music.class);
                 break;
-            case 4:
+            case 6://Visit to St. Clair
                 music = game.manager.get(Songs.Austin.getValue(), Music.class);
                 break;
-            case 5:
+            case 7://Europe
                 music = game.manager.get(Songs.IveBeenEverywhere.getValue(), Music.class);
                 break;
-            case 6:
+            case 8://Labor Day
                 music = game.manager.get(Songs.BonfireHeart.getValue(), Music.class);
                 break;
-            case 7:
+            case 9://Visit St. Joe
                 music = game.manager.get(Songs.HeyThereDelilah.getValue(), Music.class);
                 break;
-            case 8:
+            case 10://Christmas
+                //music = game.manager.get(Songs.Christmas.getValue(), Music.class);
+                break;
+            case 11://Proposal
                 music = game.manager.get(Songs.BestDayOfMyLife.getValue(), Music.class);
                 break;
         }
@@ -140,26 +149,27 @@ public class Levels implements Screen {
 
     public void handleInput(float dt) {
         if (player.currentState != Mary.State.DEAD) {
+            //Controls for desktop
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             }
-            if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2) {
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            }
-
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+            }
+            if (Gdx.input.justTouched() && !isAndroid) {
+                player.jump();
+            }
+
+            //Controls for Android
+            if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2) {
+                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             }
             if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2) {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             }
-
             if (controller.isCanJump()) {
                 player.jump();
                 controller.setCanJump(false);
-            }
-            if (Gdx.input.justTouched() && !isAndroid) {
-                player.jump();
             }
         }
     }
@@ -246,6 +256,7 @@ public class Levels implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
+        music.dispose();
         world.dispose();
         b2dr.dispose();
         controller.dispose();
