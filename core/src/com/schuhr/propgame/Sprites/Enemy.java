@@ -11,12 +11,12 @@ import com.schuhr.propgame.Screens.Levels;
  */
 
 public abstract class Enemy extends Sprite {
-    protected World world;
+    World world;
     protected Levels screen;
     public Body b2body;
-    public Vector2 velocity;
+    Vector2 velocity;
 
-    public Enemy(Levels screen, float x, float y) {
+    Enemy(Levels screen, float x, float y) {
         this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x, y);

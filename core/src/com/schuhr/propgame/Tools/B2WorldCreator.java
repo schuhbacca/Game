@@ -14,7 +14,7 @@ import com.schuhr.propgame.PropGame;
 import com.schuhr.propgame.Screens.*;
 import com.schuhr.propgame.Sprites.Brick;
 import com.schuhr.propgame.Sprites.Coin;
-import com.schuhr.propgame.Sprites.Goomba;
+import com.schuhr.propgame.Sprites.SmallEnemy;
 
 /**
  * Created by schuh on 12/11/2016.
@@ -29,7 +29,7 @@ public class B2WorldCreator {
         Pipes(3),
         Coins(4),
         Bricks(5),
-        Goombas(6),
+        LittleEnemy(6),
         Turtles(7),
         End(8);
 
@@ -38,7 +38,7 @@ public class B2WorldCreator {
         public int getValue() { return id; }
     }
 
-    private Array<Goomba> goombas;
+    private Array<SmallEnemy> smallEnemies;
 
     public B2WorldCreator(Levels screen) {
         World world = screen.getWorld();
@@ -106,16 +106,16 @@ public class B2WorldCreator {
             new Coin(screen,rect);
         }
 
-        goombas = new Array<Goomba>();
+        smallEnemies = new Array<SmallEnemy>();
         boolean enemy1 = true;
-        for (MapObject object : map.getLayers().get(ObjectIndexes.Goombas.id).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(ObjectIndexes.LittleEnemy.id).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            goombas.add(new Goomba(screen, rect.getX() / PropGame.PPM, rect.getY() / PropGame.PPM, enemy1));
+            smallEnemies.add(new SmallEnemy(screen, rect.getX() / PropGame.PPM, rect.getY() / PropGame.PPM, enemy1));
             enemy1 = !enemy1;
         }
     }
 
-    public Array<Goomba> getGoombas() {
-        return goombas;
+    public Array<SmallEnemy> getSmallEnemies() {
+        return smallEnemies;
     }
 }

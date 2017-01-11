@@ -16,14 +16,14 @@ import com.schuhr.propgame.Screens.Levels;
  * Created by schuh on 12/12/2016.
  */
 
-public class Goomba extends Enemy {
+public class SmallEnemy extends Enemy {
 
     private float stateTime;
     private Animation walkAnimation;
     private boolean setToDestroy;
     private boolean destroyed;
 
-    public Goomba(Levels screen, float x, float y, boolean enemy1) {
+    public SmallEnemy(Levels screen, float x, float y, boolean enemy1) {
         super(screen, x, y);
         Array<TextureRegion> frames = new Array<TextureRegion>();
         if (enemy1){

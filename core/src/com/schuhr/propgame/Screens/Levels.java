@@ -1,13 +1,7 @@
 package com.schuhr.propgame.Screens;
 
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.schuhr.propgame.PropGame;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -176,7 +170,7 @@ public class Levels implements Screen {
         handleInput(dt);
         world.step(1 / 60f, 6, 2);
         player.update(dt);
-        for (Enemy enemy : creator.getGoombas()) {
+        for (Enemy enemy : creator.getSmallEnemies()) {
             enemy.update(dt);
             if (enemy.getX() < player.getX() + 224 / PropGame.PPM)
                 enemy.b2body.setActive(true);
@@ -204,7 +198,7 @@ public class Levels implements Screen {
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
         player.draw(game.batch);
-        for (Enemy enemy : creator.getGoombas()) {
+        for (Enemy enemy : creator.getSmallEnemies()) {
             enemy.draw(game.batch);
         }
         game.batch.end();
