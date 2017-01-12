@@ -63,7 +63,7 @@ public class Levels implements Screen {
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(PropGame.V_WIDTH / PropGame.PPM, PropGame.V_HEIGHT / PropGame.PPM, gameCam);
 
-        hud = new Hud(game.batch);
+        hud = new Hud(game);
 
         mapLoader = new TmxMapLoader();
 
