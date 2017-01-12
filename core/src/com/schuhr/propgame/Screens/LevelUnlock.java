@@ -16,11 +16,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.schuhr.propgame.PropGame;
@@ -65,15 +67,16 @@ public class LevelUnlock implements Screen, InputProcessor {
         parameter.minFilter = Texture.TextureFilter.MipMapLinearLinear;
         parameter.magFilter = Texture.TextureFilter.Linear;
         parameter.genMipMaps = true;
-        BitmapFont font = generator.generateFont(parameter); // font size 12 pixels
+        BitmapFont font = generator.generateFont(parameter);
         font.setUseIntegerPositions(false);
-        generator.dispose(); // don't forget to dispose to avoid memory leaks!
+        generator.dispose();
         Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
 
         Label titleLabel = new Label("LEVEL UNLOCK", labelStyle);
         titleTable.add(titleLabel).padTop(10f).center().expandX();
 
         numberTable.padTop(30f);
+
         //Create buttons
         TextButton[] buttons = new TextButton[9];
         for (int i = 0; i < 9; i++) {
@@ -112,7 +115,7 @@ public class LevelUnlock implements Screen, InputProcessor {
                 prefs.putInteger("Level", 1);
                 break;
             case 304:
-                prefs.putInteger("Last", 1);
+                ShowDialog();
                 break;
             default:
                 break;
@@ -120,6 +123,41 @@ public class LevelUnlock implements Screen, InputProcessor {
         if (passcode.length() > 4) {
             passcode = "";
         }
+    }
+
+    //Show a dialog box to confirm going to the last level
+    public void ShowDialog(){
+        Label label = new Label("Unlock final level?", skin);
+        label.setWrap(true);
+        label.setFontScale(.8f);
+        label.setAlignment(Align.center);
+
+        Dialog dialog =
+                new Dialog("", skin, "default") {
+                    protected void result (Object object) {
+                        System.out.println("Chosen: " + object);
+                        if(object.equals(true)){
+                            prefs.putInteger("Last", 1);
+                        }else{
+                            prefs.putInteger("Last", 0);
+                        }
+                    }
+                };
+
+        dialog.padTop(10f).padBottom(10f);
+        dialog.getContentTable().add(label).width(200f).row();
+        dialog.getButtonTable().padTop(10f);
+
+        TextButton dbutton = new TextButton("Yes", skin, "default");
+        dialog.button(dbutton, true);
+
+        dbutton = new TextButton("No", skin, "default");
+        dialog.button(dbutton, false);
+        dialog.key(Input.Keys.ENTER, true).key(Input.Keys.ESCAPE, false);
+        dialog.invalidateHierarchy();
+        dialog.invalidate();
+        dialog.layout();
+        dialog.show(stage);
     }
 
     @Override
