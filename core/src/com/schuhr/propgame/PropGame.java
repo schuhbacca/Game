@@ -91,7 +91,10 @@ public class PropGame extends Game {
         BestDayOfMyLife("audio/music/BestDayOfMyLife.mp3");
         /*FoolsLove("audio/music/FoolsLove.mp3"),
         SomethingWild("audio/music/SomethingWild.mp3"),
-        Hobbits("audio/music/Hobbits.mp3");*/
+        ImYours("audio/music/ImYours.mp3"),
+        PerfectForMe("audio/music/PerfectForMe.mp3"),
+        Hobbits("audio/music/Hobbits.mp3");
+        */
 
         private final String name;
         Songs(String name) { this.name = name; }

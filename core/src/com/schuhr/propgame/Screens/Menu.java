@@ -3,6 +3,7 @@ package com.schuhr.propgame.Screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -30,6 +31,7 @@ public class Menu implements Screen {
     private Stage stage;
     TextureAtlas atlas;
     Skin skin;
+    protected Music music;
 
     private PropGame game;
 
@@ -38,8 +40,10 @@ public class Menu implements Screen {
         viewport = new FitViewport(PropGame.V_WIDTH, PropGame.V_HEIGHT, new OrthographicCamera());
         atlas = new TextureAtlas("Visui/uiskin.atlas");
         skin = new Skin(Gdx.files.internal("Visui/uiskin.json"), atlas);
-
         stage = new Stage(viewport, ((PropGame) game).batch);
+        /*music = game.manager.get(PropGame.Songs.FoolsLove.getValue(), Music.class);
+        music.setLooping(true);
+        music.play();*/
     }
 
     @Override
@@ -136,6 +140,8 @@ public class Menu implements Screen {
     public void dispose() {
         skin.dispose();
         atlas.dispose();
-
+        music.dispose();
+        stage.dispose();
+        skin.dispose();
     }
 }
