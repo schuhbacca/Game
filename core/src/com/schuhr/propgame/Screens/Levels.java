@@ -2,6 +2,7 @@ package com.schuhr.propgame.Screens;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.utils.SerializationException;
 import com.schuhr.propgame.PropGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -53,10 +54,11 @@ public class Levels implements Screen {
     protected String levelName;
 
     boolean isAndroid = false;
+    boolean hide = false;
 
     public Levels(PropGame game) {
         this.game = game;
-        atlas = new TextureAtlas("Characters.pack");
+        atlas = new TextureAtlas("Levels/Characters.pack");
 
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(PropGame.V_WIDTH / PropGame.PPM, PropGame.V_HEIGHT / PropGame.PPM, gameCam);
@@ -65,7 +67,7 @@ public class Levels implements Screen {
 
         mapLoader = new TmxMapLoader();
 
-        map = mapLoader.load("level" + game.GetLevel() + ".tmx");
+        map = mapLoader.load("Levels/level" + game.GetLevel() + ".tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map, 1 / PropGame.PPM);
 
@@ -218,17 +220,16 @@ public class Levels implements Screen {
         hud.stage.draw();
         if (gameOver()) {
             game.setScreen(new GameOverScreen(game));
-            dispose();
         }
     }
 
     @Override
     public void show() {
-
+        hide = false;
     }
 
     public boolean gameOver() {
-        return  (player.currentState == Mary.State.DEAD && player.getStateTimer() > 3
+        return (player.currentState == Mary.State.DEAD && player.getStateTimer() > 3
                 || (player.b2body.getPosition().y < (-100 / PropGame.PPM)));
     }
 
@@ -251,7 +252,7 @@ public class Levels implements Screen {
 
     @Override
     public void hide() {
-
+        dispose();
     }
 
     @Override

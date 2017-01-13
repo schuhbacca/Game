@@ -21,6 +21,7 @@ import com.schuhr.propgame.PropGame;
 public class LevelsIntro implements Screen {
     private Viewport viewport;
     private Stage stage;
+    Label levelLabel;
 
     private Game game;
 
@@ -35,9 +36,9 @@ public class LevelsIntro implements Screen {
         table.center();
         table.setFillParent(true);
 
-        Label gameOverLabel = new Label("LEVEL: " + ((PropGame) game).GetLevel(), font);
+        levelLabel = new Label("LEVEL: " + ((PropGame) game).GetLevel(), font);
         Label playAgainLabel = new Label("Click to play!", font);
-        table.add(gameOverLabel).expandX();
+        table.add(levelLabel).expandX();
         table.row();
         table.add(playAgainLabel).expandX().padTop(10f);
 
@@ -53,8 +54,11 @@ public class LevelsIntro implements Screen {
     @Override
     public void render(float delta) {
         if (Gdx.input.justTouched()) {
-            game.setScreen(new Levels((PropGame) game));
-            dispose();
+            try{
+                game.setScreen(new Levels((PropGame) game));
+            }catch (Exception ex){
+                levelLabel.setText("Unable to play level.");
+            }
         }
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -78,7 +82,7 @@ public class LevelsIntro implements Screen {
 
     @Override
     public void hide() {
-
+        dispose();
     }
 
     @Override

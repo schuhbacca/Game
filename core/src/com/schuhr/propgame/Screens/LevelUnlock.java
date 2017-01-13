@@ -186,7 +186,7 @@ public class LevelUnlock implements Screen, InputProcessor {
 
     @Override
     public void hide() {
-
+        dispose();
     }
 
     @Override

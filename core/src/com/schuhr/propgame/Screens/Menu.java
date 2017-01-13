@@ -133,7 +133,7 @@ public class Menu implements Screen {
 
     @Override
     public void hide() {
-
+        dispose();
     }
 
     @Override
@@ -141,6 +141,5 @@ public class Menu implements Screen {
         skin.dispose();
         atlas.dispose();
         stage.dispose();
-        skin.dispose();
     }
 }
