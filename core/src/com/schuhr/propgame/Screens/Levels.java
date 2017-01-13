@@ -219,6 +219,7 @@ public class Levels implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         if (gameOver()) {
+            game.getMusic().stop();
             game.setScreen(new GameOverScreen(game));
         }
     }
