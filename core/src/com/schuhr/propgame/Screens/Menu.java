@@ -54,7 +54,7 @@ public class Menu implements Screen {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Visui/Raiders.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 36;
+        parameter.size = 20;
         parameter.minFilter = Texture.TextureFilter.MipMapLinearLinear;
         parameter.magFilter = Texture.TextureFilter.Linear;
         parameter.genMipMaps = true;
@@ -63,7 +63,7 @@ public class Menu implements Screen {
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
         Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
 
-        Label titleLabel = new Label("The Game of Mary",labelStyle);
+        Label titleLabel = new Label("The Game of Mare Bear",labelStyle);
 
         //Create buttons
         TextButton playButton = new TextButton("Play", skin, "blue");
