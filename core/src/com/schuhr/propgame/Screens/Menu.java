@@ -60,7 +60,7 @@ public class Menu implements Screen {
         parameter.genMipMaps = true;
         BitmapFont font = generator.generateFont(parameter); // font size 12 pixels
         font.setUseIntegerPositions(false);
-        generator.dispose(); // don't forget to dispose to avoid memory leaks!
+        generator.dispose();
         Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
 
         Label titleLabel = new Label("The Game of Mare Bear",labelStyle);
@@ -69,7 +69,6 @@ public class Menu implements Screen {
         TextButton playButton = new TextButton("Play", skin, "blue");
         TextButton optionsButton = new TextButton("Options", skin, "blue");
         TextButton exitButton = new TextButton("Exit", skin, "blue");
-        TextButton testButton = new TextButton("Exit", skin, "blue");
 
         //Add listeners to buttons
         playButton.addListener(new ClickListener(){
