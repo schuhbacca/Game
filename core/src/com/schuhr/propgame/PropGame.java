@@ -83,6 +83,7 @@ public class PropGame extends Game {
     public void dispose() {
         batch.dispose();
         manager.dispose();
+        music.dispose();
     }
 
     public enum Songs{
