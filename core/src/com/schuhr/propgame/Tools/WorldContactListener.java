@@ -64,10 +64,11 @@ public class WorldContactListener implements ContactListener {
                 ((Enemy) fixB.getUserData()).reverseVelocity(true, false);
                 break;
             case PropGame.MARY_BIT | PropGame.END_BIT:
+                game.getMusic().stop();
                 Preferences prefs = Gdx.app.getPreferences("SETTINGS");
                 int level = prefs.getInteger("Level");
-                prefs.putInteger("Test",1);
-                //prefs.putInteger("Level", level++);
+                level++;
+                prefs.putInteger("Level", level);
                 prefs.flush();
                 ((PropGame)game).CreateLevel();
                 break;

@@ -30,12 +30,19 @@ public class PropGame extends Game {
 
     Preferences prefs;
 
+    public Music getMusic() {
+        return music;
+    }
+
+    public void setMusic(Music music) {
+        this.music = music;
+    }
+
+    private Music music;
+
     @Override
     public void create() {
         prefs = Gdx.app.getPreferences("SETTINGS");
-        prefs.putInteger("Level", 1);
-        prefs.putInteger("Test", 0);
-        prefs.flush();
         batch = new SpriteBatch();
         manager = new AssetManager();
         loadAssets();
@@ -44,8 +51,6 @@ public class PropGame extends Game {
     }
 
     public void CreateLevel(){
-        Gdx.app.log("Test", String.valueOf(prefs.getInteger("Test")));
-
         if(GetLevel() != -1){
             setScreen(new LevelsIntro(this));
         }else{
@@ -88,13 +93,13 @@ public class PropGame extends Game {
         IveBeenEverywhere("audio/music/IveBeenEverywhere.mp3"),
         BonfireHeart("audio/music/BonfireHeart.mp3"),
         HeyThereDelilah("audio/music/HeyThereDelilah.mp3"),
-        BestDayOfMyLife("audio/music/BestDayOfMyLife.mp3");
-        /*FoolsLove("audio/music/FoolsLove.mp3"),
+        BestDayOfMyLife("audio/music/BestDayOfMyLife.mp3"),
+        FoolsLove("audio/music/FoolsLove.mp3"),
         SomethingWild("audio/music/SomethingWild.mp3"),
         ImYours("audio/music/ImYours.mp3"),
         PerfectForMe("audio/music/PerfectForMe.mp3"),
         Hobbits("audio/music/Hobbits.mp3");
-        */
+
 
         private final String name;
         Songs(String name) { this.name = name; }

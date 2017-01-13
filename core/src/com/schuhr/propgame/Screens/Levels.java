@@ -48,8 +48,6 @@ public class Levels implements Screen {
 
     protected Viewport gamePort;
 
-    protected Music music;
-
     protected Controller controller;
 
     protected String levelName;
@@ -106,48 +104,49 @@ public class Levels implements Screen {
     }
 
     private void SetMusic() {
+        int skipForward = 0;
         switch (game.GetLevel()) {
             case 1://Hiking Up North
-                music = game.manager.get(Songs.Sloth.getValue(), Music.class);
-                //music = game.manager.get(Songs.SomethingWild.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.SomethingWild.getValue(), Music.class));
                 break;
             case 2://LOTR, Milkshakes, Italian
-                //music = game.manager.get(Songs.Hobbits.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.Hobbits.getValue(), Music.class));
+                skipForward = 5;
                 break;
             case 3://Traverse City
-                music = game.manager.get(Songs.Sloth.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.Sloth.getValue(), Music.class));
                 break;
             case 4://Chill on the hill
-                music = game.manager.get(Songs.Saviour.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.Saviour.getValue(), Music.class));
                 break;
             case 5://Mary's Place
-                music = game.manager.get(Songs.YouBelongWithMe.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.YouBelongWithMe.getValue(), Music.class));
                 break;
             case 6://Visit to St. Clair
-                music = game.manager.get(Songs.Austin.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.Austin.getValue(), Music.class));
                 break;
             case 7://Europe
-                music = game.manager.get(Songs.IveBeenEverywhere.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.IveBeenEverywhere.getValue(), Music.class));
                 break;
             case 8://Labor Day
-                music = game.manager.get(Songs.BonfireHeart.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.BonfireHeart.getValue(), Music.class));
                 break;
             case 9://Visit St. Joe
-                music = game.manager.get(Songs.HeyThereDelilah.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.HeyThereDelilah.getValue(), Music.class));
                 break;
             case 10://Christmas
-                //music = game.manager.get(Songs.PerfectForMe.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.PerfectForMe.getValue(), Music.class));
                 break;
             case 11://Picture Level
-                //music = game.manager.get(Songs.ImYours.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.ImYours.getValue(), Music.class));
                 break;
             case 12://Proposal
-                music = game.manager.get(Songs.BestDayOfMyLife.getValue(), Music.class);
+                game.setMusic(game.manager.get(Songs.BestDayOfMyLife.getValue(), Music.class));
                 break;
         }
-
-        music.setLooping(true);
-        music.play();
+        game.getMusic().setLooping(true);
+        game.getMusic().play();
+        game.getMusic().setPosition(skipForward);
     }
 
     public void handleInput(float dt) {
@@ -259,7 +258,6 @@ public class Levels implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
-        music.dispose();
         world.dispose();
         b2dr.dispose();
         controller.dispose();

@@ -31,7 +31,6 @@ public class Menu implements Screen {
     private Stage stage;
     TextureAtlas atlas;
     Skin skin;
-    protected Music music;
 
     private PropGame game;
 
@@ -41,9 +40,10 @@ public class Menu implements Screen {
         atlas = new TextureAtlas("Visui/uiskin.atlas");
         skin = new Skin(Gdx.files.internal("Visui/uiskin.json"), atlas);
         stage = new Stage(viewport, ((PropGame) game).batch);
-        /*music = game.manager.get(PropGame.Songs.FoolsLove.getValue(), Music.class);
-        music.setLooping(true);
-        music.play();*/
+        game.setMusic(game.manager.get(PropGame.Songs.FoolsLove.getValue(), Music.class));
+        game.getMusic().setLooping(true);
+        game.getMusic().play();
+        game.getMusic().setPosition(7);
     }
 
     @Override
@@ -75,6 +75,7 @@ public class Menu implements Screen {
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.getMusic().stop();
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new LevelsIntro(game));
             }
         });
@@ -140,7 +141,6 @@ public class Menu implements Screen {
     public void dispose() {
         skin.dispose();
         atlas.dispose();
-        music.dispose();
         stage.dispose();
         skin.dispose();
     }
