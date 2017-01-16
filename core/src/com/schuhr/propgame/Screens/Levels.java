@@ -147,7 +147,7 @@ public class Levels implements Screen {
                 break;
         }
         game.getMusic().setLooping(true);
-        game.getMusic().play();
+        //game.getMusic().play();
         game.getMusic().setPosition(skipForward);
     }
 
@@ -189,10 +189,10 @@ public class Levels implements Screen {
         }
         hud.update(dt);
 
-        if (player.currentState != Mary.State.DEAD)
-            gameCam.position.x = player.b2body.getPosition().x;
-        gameCam.update();
-        renderer.setView(gameCam);
+            if (player.currentState != Mary.State.DEAD)
+                gameCam.position.x = player.b2body.getPosition().x;
+            gameCam.update();
+            renderer.setView(gameCam);
     }
 
     @Override
@@ -231,7 +231,8 @@ public class Levels implements Screen {
 
     public boolean gameOver() {
         return (player.currentState == Mary.State.DEAD && player.getStateTimer() > 3
-                || (player.b2body.getPosition().y < (-100 / PropGame.PPM)));
+                || (player.b2body.getPosition().y < (-100 / PropGame.PPM))
+        || hud.getWorldTimer() == 0);
     }
 
     @Override
