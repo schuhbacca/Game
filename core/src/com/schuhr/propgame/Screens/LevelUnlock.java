@@ -111,8 +111,9 @@ public class LevelUnlock implements Screen, InputProcessor {
     private void CheckPasscode() {
         int password = Integer.valueOf(passcode);
         switch (password) {
-            case 8008:
+            case 9876:
                 prefs.putInteger("Level", 1);
+                prefs.flush();
                 break;
             case 304:
                 ShowDialog();
@@ -186,7 +187,7 @@ public class LevelUnlock implements Screen, InputProcessor {
 
     @Override
     public void hide() {
-        dispose();
+
     }
 
     @Override
@@ -199,6 +200,7 @@ public class LevelUnlock implements Screen, InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         ((PropGame) game).setScreen(new Menu(game));
+        dispose();
         return false;
     }
 

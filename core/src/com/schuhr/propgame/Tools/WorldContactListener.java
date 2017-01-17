@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.utils.Timer;
 import com.schuhr.propgame.PropGame;
 import com.schuhr.propgame.Sprites.Enemy;
 import com.schuhr.propgame.Sprites.InteractiveTileObject;
@@ -19,6 +20,8 @@ import com.schuhr.propgame.Sprites.Mary;
 
 public class WorldContactListener implements ContactListener {
     private PropGame game;
+    private Timer contactTime;
+    boolean canContact = true;
 
     public WorldContactListener(PropGame game){
         this.game = game;
@@ -46,6 +49,13 @@ public class WorldContactListener implements ContactListener {
                     ((Enemy) fixA.getUserData()).hitOnHead();
                 else
                     ((Enemy) fixB.getUserData()).hitOnHead();
+                canContact=false;
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        canContact = true;
+                    }
+                }, .2f);
                 break;
             case PropGame.ENEMY_BIT | PropGame.OBJECT_BIT:
                 if (fixA.getFilterData().categoryBits == PropGame.ENEMY_BIT)
@@ -54,12 +64,14 @@ public class WorldContactListener implements ContactListener {
                     ((Enemy) fixB.getUserData()).reverseVelocity(true, false);
                 break;
             case PropGame.MARY_BIT | PropGame.ENEMY_BIT:
-                if(fixA.getFilterData().categoryBits == PropGame.MARY_BIT)
-                    ((Mary)fixA.getUserData()).hit();
-                else
-                    ((Mary)fixB.getUserData()).hit();
+                if(canContact) {
+                    if (fixA.getFilterData().categoryBits == PropGame.MARY_BIT)
+                        ((Mary) fixA.getUserData()).hit();
+                    else
+                        ((Mary) fixB.getUserData()).hit();
+                }
                 break;
-            case PropGame.ENEMY_BIT | PropGame.ENEMY_BIT:
+            case PropGame.ENEMY_BIT:
                 ((Enemy) fixA.getUserData()).reverseVelocity(true, false);
                 ((Enemy) fixB.getUserData()).reverseVelocity(true, false);
                 break;

@@ -150,6 +150,7 @@ public class Mary extends Sprite {
         fdef.isSensor = true;
 
         b2body.createFixture(fdef).setUserData("head");
+        shape.dispose();
     }
 
     public void hit(){

@@ -73,7 +73,7 @@ public class Levels implements Screen {
 
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        world = new World(new Vector2(0, -10), true);
+        world = new World(new Vector2(0, -8.2f), true);
         b2dr = new Box2DDebugRenderer();
 
         creator = new B2WorldCreator(this);
@@ -221,6 +221,7 @@ public class Levels implements Screen {
         if (gameOver()) {
             game.getMusic().stop();
             game.setScreen(new GameOverScreen(game));
+            dispose();
         }
     }
 
@@ -254,7 +255,7 @@ public class Levels implements Screen {
 
     @Override
     public void hide() {
-        dispose();
+
     }
 
     @Override
