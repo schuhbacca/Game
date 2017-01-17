@@ -23,9 +23,11 @@ public class SmallEnemy extends Enemy {
     private boolean setToDestroy;
     private boolean destroyed;
     private float mod;
+    private boolean enemey1;
 
     public SmallEnemy(Levels screen, float x, float y, boolean enemy1) {
         super(screen, x, y);
+        this.enemey1 = enemy1;
         Array<TextureRegion> frames = new Array<TextureRegion>();
         if (enemy1) {
             for (int i = 0; i < 3; i++) {
@@ -48,16 +50,20 @@ public class SmallEnemy extends Enemy {
         if (setToDestroy && !destroyed) {
             world.destroyBody(b2body);
             destroyed = true;
-            setRegion(new TextureRegion(screen.getAtlas().findRegion("Enemies"), 48, 0, 16, 16));
+            if (enemey1)
+                setRegion(new TextureRegion(screen.getAtlas().findRegion("Enemies"), 48, 0, 16, 16));
+            else
+                setRegion(new TextureRegion(screen.getAtlas().findRegion("Enemies"), 48, 16, 16, 16));
+
             stateTime = 0;
         } else if (!destroyed) {
             if ((b2body.getLinearVelocity().x == 0)) {
                 mod += dt;
-                if (mod > .5){
+                if (mod > .5) {
                     reverseVelocity(true, false);
                     mod = 0;
                 }
-            }else{
+            } else {
                 mod = 0;
             }
             b2body.setLinearVelocity(velocity);
