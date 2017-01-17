@@ -16,13 +16,19 @@ public abstract class Enemy extends Sprite {
     public Body b2body;
     Vector2 velocity;
 
+    public enum State {WALKING, JUMPING}
+
+    protected State currentState;
+    protected State lastState;
+
     Enemy(Levels screen, float x, float y) {
         this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x, y);
         defineEnemy();
-        velocity = new Vector2(1,0);
+        velocity = new Vector2(1f,0);
         b2body.setActive(false);
+        currentState = State.WALKING;
     }
 
     protected abstract void defineEnemy();

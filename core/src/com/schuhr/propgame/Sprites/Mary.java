@@ -81,7 +81,7 @@ public class Mary extends Sprite {
         currentState = getState();
 
         TextureRegion region;
-        switch (currentState){
+        switch (currentState) {
             case DEAD:
                 region = maryDead;
                 break;
@@ -97,20 +97,20 @@ public class Mary extends Sprite {
                 region = maryStand;
                 break;
         }
-        if((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()){
+        if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
             runningRight = false;
-        }else if((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()){
-            region.flip(true,false);
+        } else if ((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
+            region.flip(true, false);
             runningRight = true;
         }
         stateTimer = currentState == previousState ? stateTimer + dt : 0;
         previousState = currentState;
-        return  region;
+        return region;
     }
 
     public State getState() {
-        if(maryIsDead)
+        if (maryIsDead)
             return State.DEAD;
         else if (b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) {
             return State.JUMPING;
@@ -137,15 +137,15 @@ public class Mary extends Sprite {
                 PropGame.COIN_BIT |
                 PropGame.BRICK_BIT |
                 PropGame.OBJECT_BIT |
-        PropGame.ENEMY_BIT |
-        PropGame.ENEMY_HEAD_BIT |
-        PropGame.END_BIT;
+                PropGame.ENEMY_BIT |
+                PropGame.ENEMY_HEAD_BIT |
+                PropGame.END_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
 
         EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 /PropGame.PPM, 6 / PropGame.PPM), new Vector2(2 /PropGame.PPM, 6 / PropGame.PPM));
+        head.set(new Vector2(-2 / PropGame.PPM, 6 / PropGame.PPM), new Vector2(2 / PropGame.PPM, 6 / PropGame.PPM));
         fdef.shape = head;
         fdef.isSensor = true;
 
@@ -153,27 +153,27 @@ public class Mary extends Sprite {
         shape.dispose();
     }
 
-    public void hit(){
+    public void hit() {
         screen.getGame().manager.get("audio/music/mario_music.ogg", Music.class).stop();
         screen.getGame().manager.get("audio/sounds/mariodie.wav", Sound.class).play();
         maryIsDead = true;
         Filter filter = new Filter();
         filter.maskBits = PropGame.NOTHING_BIT;
-        for(Fixture fixture : b2body.getFixtureList())
+        for (Fixture fixture : b2body.getFixtureList())
             fixture.setFilterData(filter);
         b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
     }
 
-    public boolean isDead(){
+    public boolean isDead() {
         return maryIsDead;
     }
 
-    public float getStateTimer(){
-        return  stateTimer;
+    public float getStateTimer() {
+        return stateTimer;
     }
 
-    public void jump(){
-        if ( currentState != State.JUMPING ) {
+    public void jump() {
+        if (currentState != State.JUMPING) {
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
             currentState = State.JUMPING;
         }
