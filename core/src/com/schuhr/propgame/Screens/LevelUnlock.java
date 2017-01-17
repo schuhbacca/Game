@@ -111,7 +111,7 @@ public class LevelUnlock implements Screen, InputProcessor {
     private void CheckPasscode() {
         int password = Integer.valueOf(passcode);
         switch (password) {
-            case 9876:
+            case 8765:
                 prefs.putInteger("Level", 1);
                 prefs.flush();
                 break;
