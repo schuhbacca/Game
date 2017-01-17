@@ -43,8 +43,8 @@ public class PropGame extends Game {
     @Override
     public void create() {
         prefs = Gdx.app.getPreferences("SETTINGS");
-        if(GetLevel() == 0){
-            prefs.putInteger("Level",1);
+        if (GetLevel() == 0) {
+            prefs.putInteger("Level", 1);
             prefs.flush();
         }
         batch = new SpriteBatch();
@@ -54,17 +54,16 @@ public class PropGame extends Game {
         setScreen(new Menu(this));
     }
 
-    public void CreateLevel(){
-        if(GetLevel() != -1){
+    public void CreateLevel() {
+        if (GetLevel() != -1) {
             setScreen(new LevelsIntro(this));
-        }else{
+        } else {
             setScreen(new GameOverScreen(this));
         }
     }
 
-    public void loadAssets(){
-        for(Songs s : Songs.values())
-        {
+    public void loadAssets() {
+        for (Songs s : Songs.values()) {
             manager.load(s.getValue(), Music.class);
         }
         manager.load("audio/music/mario_music.ogg", Music.class);
@@ -74,7 +73,7 @@ public class PropGame extends Game {
         manager.load("audio/sounds/mariodie.wav", Sound.class);
     }
 
-    public int GetLevel(){
+    public int GetLevel() {
         return prefs.getInteger("Level");
     }
 
@@ -90,7 +89,7 @@ public class PropGame extends Game {
         music.dispose();
     }
 
-    public enum Songs{
+    public enum Songs {
         Saviour("audio/music/Saviour.mp3"),
         Sloth("audio/music/SlothsRevenge.mp3"),
         YouBelongWithMe("audio/music/YouBelongWithMe.mp3"),
@@ -107,7 +106,13 @@ public class PropGame extends Game {
 
 
         private final String name;
-        Songs(String name) { this.name = name; }
-        public String getValue() { return name; }
+
+        Songs(String name) {
+            this.name = name;
+        }
+
+        public String getValue() {
+            return name;
+        }
     }
 }
