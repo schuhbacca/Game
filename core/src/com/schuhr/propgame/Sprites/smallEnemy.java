@@ -22,16 +22,15 @@ public class SmallEnemy extends Enemy {
     private Animation walkAnimation;
     private boolean setToDestroy;
     private boolean destroyed;
-    private float mod;
 
     public SmallEnemy(Levels screen, float x, float y, boolean enemy1) {
         super(screen, x, y);
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        if (enemy1) {
+        if (enemy1){
             for (int i = 0; i < 3; i++) {
                 frames.add(new TextureRegion(screen.getAtlas().findRegion("Enemies"), i * 16, 0, 16, 16));
             }
-        } else {
+        }else{
             for (int i = 0; i < 3; i++) {
                 frames.add(new TextureRegion(screen.getAtlas().findRegion("Enemies"), i * 16, 16, 16, 16));
             }
@@ -51,15 +50,6 @@ public class SmallEnemy extends Enemy {
             setRegion(new TextureRegion(screen.getAtlas().findRegion("Enemies"), 48, 0, 16, 16));
             stateTime = 0;
         } else if (!destroyed) {
-            if ((b2body.getLinearVelocity().x == 0)) {
-                mod += dt;
-                if (mod > .5){
-                    reverseVelocity(true, false);
-                    mod = 0;
-                }
-            }else{
-                mod = 0;
-            }
             b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion(walkAnimation.getKeyFrame(stateTime, true));
@@ -100,7 +90,6 @@ public class SmallEnemy extends Enemy {
         fdef.restitution = 0.5f;
         fdef.filter.categoryBits = PropGame.ENEMY_HEAD_BIT;
         b2body.createFixture(fdef).setUserData(this);
-        shape.dispose();
     }
 
     public void draw(Batch batch) {
