@@ -147,7 +147,7 @@ public class Levels implements Screen {
                 break;
         }
         game.getMusic().setLooping(true);
-        //game.getMusic().play();
+        game.getMusic().play();
         game.getMusic().setPosition(skipForward);
     }
 
