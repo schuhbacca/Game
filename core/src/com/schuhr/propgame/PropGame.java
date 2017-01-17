@@ -45,6 +45,7 @@ public class PropGame extends Game {
         prefs = Gdx.app.getPreferences("SETTINGS");
         if(GetLevel() == 0){
             prefs.putInteger("Level",1);
+            prefs.flush();
         }
         batch = new SpriteBatch();
         manager = new AssetManager();
