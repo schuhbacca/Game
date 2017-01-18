@@ -2,7 +2,6 @@ package com.schuhr.propgame.Screens;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.utils.SerializationException;
 import com.schuhr.propgame.PropGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -20,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.schuhr.propgame.Scenes.Hud;
 import com.schuhr.propgame.Sprites.*;
+import com.schuhr.propgame.Sprites.Enemies.Enemy;
 import com.schuhr.propgame.Tools.*;
 import com.schuhr.propgame.PropGame.Songs;
 
@@ -182,7 +182,12 @@ public class Levels implements Screen {
         handleInput(dt);
         world.step(1 / 60f, 6, 2);
         player.update(dt);
-        for (Enemy enemy : creator.getSmallEnemies()) {
+        for (Enemy enemy : creator.getRedEnemies()) {
+            enemy.update(dt);
+            if (enemy.getX() < player.getX() + 224 / PropGame.PPM)
+                enemy.b2body.setActive(true);
+        }
+        for (Enemy enemy : creator.getBlueEnemies()) {
             enemy.update(dt);
             if (enemy.getX() < player.getX() + 224 / PropGame.PPM)
                 enemy.b2body.setActive(true);
@@ -211,7 +216,10 @@ public class Levels implements Screen {
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
         player.draw(game.batch);
-        for (Enemy enemy : creator.getSmallEnemies()) {
+        for (Enemy enemy : creator.getRedEnemies()) {
+            enemy.draw(game.batch);
+        }
+        for (Enemy enemy : creator.getBlueEnemies()) {
             enemy.draw(game.batch);
         }
         game.batch.end();

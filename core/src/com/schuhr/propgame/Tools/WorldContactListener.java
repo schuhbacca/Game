@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Timer;
 import com.schuhr.propgame.PropGame;
-import com.schuhr.propgame.Sprites.Enemy;
+import com.schuhr.propgame.Sprites.Enemies.Enemy;
 import com.schuhr.propgame.Sprites.InteractiveTileObject;
 import com.schuhr.propgame.Sprites.Mary;
 

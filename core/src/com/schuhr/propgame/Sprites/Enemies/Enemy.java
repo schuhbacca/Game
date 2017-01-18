@@ -1,4 +1,4 @@
-package com.schuhr.propgame.Sprites;
+package com.schuhr.propgame.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -16,10 +16,10 @@ public abstract class Enemy extends Sprite {
     public Body b2body;
     Vector2 velocity;
 
-    public enum State {WALKING, JUMPING}
+    public enum State {WALKING, JUMPING, DEAD, FALLING}
 
     protected State currentState;
-    protected State lastState;
+    protected State previousState;
 
     Enemy(Levels screen, float x, float y) {
         this.world = screen.getWorld();

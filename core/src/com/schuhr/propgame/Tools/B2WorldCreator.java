@@ -14,7 +14,7 @@ import com.schuhr.propgame.PropGame;
 import com.schuhr.propgame.Screens.*;
 import com.schuhr.propgame.Sprites.Brick;
 import com.schuhr.propgame.Sprites.Coin;
-import com.schuhr.propgame.Sprites.SmallEnemy;
+import com.schuhr.propgame.Sprites.Enemies.*;
 
 /**
  * Created by schuh on 12/11/2016.
@@ -22,7 +22,7 @@ import com.schuhr.propgame.Sprites.SmallEnemy;
 
 public class B2WorldCreator {
 
-    private enum ObjectIndexes{
+    private enum ObjectIndexes {
         Background(0),
         Graphics(1),
         Ground(2),
@@ -34,11 +34,18 @@ public class B2WorldCreator {
         End(8);
 
         private final int id;
-        ObjectIndexes(int id) { this.id = id; }
-        public int getValue() { return id; }
+
+        ObjectIndexes(int id) {
+            this.id = id;
+        }
+
+        public int getValue() {
+            return id;
+        }
     }
 
-    private Array<SmallEnemy> smallEnemies;
+    private Array<RedEnemy> redEnemies;
+    private Array<BlueEnemy> blueEnemies;
 
     public B2WorldCreator(Levels screen) {
         World world = screen.getWorld();
@@ -53,7 +60,7 @@ public class B2WorldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2)  / PropGame.PPM, (rect.getY() + rect.getHeight() / 2)  / PropGame.PPM);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / PropGame.PPM, (rect.getY() + rect.getHeight() / 2) / PropGame.PPM);
 
             body = world.createBody(bdef);
 
@@ -68,7 +75,7 @@ public class B2WorldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2)  / PropGame.PPM, (rect.getY() + rect.getHeight() / 2)  / PropGame.PPM);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / PropGame.PPM, (rect.getY() + rect.getHeight() / 2) / PropGame.PPM);
 
             body = world.createBody(bdef);
 
@@ -83,7 +90,7 @@ public class B2WorldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2)  / PropGame.PPM, (rect.getY() + rect.getHeight() / 2)  / PropGame.PPM);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / PropGame.PPM, (rect.getY() + rect.getHeight() / 2) / PropGame.PPM);
 
             body = world.createBody(bdef);
 
@@ -103,19 +110,26 @@ public class B2WorldCreator {
         //create coins bodies/fixtures
         for (MapObject object : map.getLayers().get(ObjectIndexes.Coins.id).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Coin(screen,rect);
+            new Coin(screen, rect);
         }
 
-        smallEnemies = new Array<SmallEnemy>();
-        boolean enemy1 = true;
+        redEnemies = new Array<RedEnemy>();
+        blueEnemies = new Array<BlueEnemy>();
+        boolean isRed = true;
         for (MapObject object : map.getLayers().get(ObjectIndexes.LittleEnemy.id).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            smallEnemies.add(new SmallEnemy(screen, rect.getX() / PropGame.PPM, rect.getY() / PropGame.PPM, enemy1));
-            enemy1 = !enemy1;
+                if (isRed)
+                    redEnemies.add(new RedEnemy(screen, rect.getX() / PropGame.PPM, rect.getY() / PropGame.PPM));
+                else
+                    blueEnemies.add(new BlueEnemy(screen, rect.getX() / PropGame.PPM, rect.getY() / PropGame.PPM));
+                isRed = !isRed;
         }
     }
 
-    public Array<SmallEnemy> getSmallEnemies() {
-        return smallEnemies;
+    public Array<BlueEnemy> getBlueEnemies() {
+        return blueEnemies;
+    }
+    public Array<RedEnemy> getRedEnemies() {
+        return redEnemies;
     }
 }

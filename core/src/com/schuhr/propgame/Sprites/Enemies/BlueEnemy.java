@@ -1,4 +1,4 @@
-package com.schuhr.propgame.Sprites;
+package com.schuhr.propgame.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -15,11 +15,10 @@ import com.schuhr.propgame.Screens.Levels;
 import java.util.Random;
 
 /**
- * Created by schuh on 12/12/2016.
+ * Created by schuhr on 1/18/2017.
  */
 
-public class SmallEnemy extends Enemy {
-
+public class BlueEnemy extends Enemy {
     private float stateTime;
     private Animation walkAnimation;
     private boolean setToDestroy;
@@ -27,26 +26,17 @@ public class SmallEnemy extends Enemy {
     private float mod;
     private boolean enemey1;
 
-    public SmallEnemy(Levels screen, float x, float y, boolean enemy1) {
+    public BlueEnemy(Levels screen, float x, float y) {
         super(screen, x, y);
-        this.enemey1 = enemy1;
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        if (enemy1) {
-            for (int i = 0; i < 3; i++) {
-                frames.add(new TextureRegion(screen.getAtlas().findRegion("Enemies"), i * 16, 0, 16, 16));
-            }
-        } else {
-            for (int i = 0; i < 3; i++) {
-                frames.add(new TextureRegion(screen.getAtlas().findRegion("Enemies"), i * 16, 16, 16, 16));
-            }
+        for (int i = 0; i < 3; i++) {
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("Enemies"), i * 16, 16, 16, 16));
         }
         walkAnimation = new Animation(0.4f, frames);
         stateTime = 0;
         setBounds(getX(), getY(), 16 / PropGame.PPM, 16 / PropGame.PPM);
         setToDestroy = false;
         destroyed = false;
-        Random rand = new Random();
-        jumpCondition = rand.nextInt((6 - 1) + 1) + 1;
     }
 
     public void update(float dt) {
@@ -54,23 +44,14 @@ public class SmallEnemy extends Enemy {
         if (setToDestroy && !destroyed) {
             world.destroyBody(b2body);
             destroyed = true;
-            if (enemey1)
-                setRegion(new TextureRegion(screen.getAtlas().findRegion("Enemies"), 48, 0, 16, 16));
-            else
-                setRegion(new TextureRegion(screen.getAtlas().findRegion("Enemies"), 48, 16, 16, 16));
+            setRegion(new TextureRegion(screen.getAtlas().findRegion("Enemies"), 48, 16, 16, 16));
 
             stateTime = 0;
         } else if (!destroyed) {
             //Checks to see if the enemy is stuck somehwere and if they are reverse their direction
             getUnstuck(dt);
 
-            /*if(b2body.getLinearVelocity().x <= 1)
-                b2body.applyLinearImpulse(velocity, b2body.getWorldCenter(), true);*/
-
             b2body.setLinearVelocity(velocity);
-
-            //Make some enemies jump
-            jump(dt);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion(walkAnimation.getKeyFrame(stateTime, true));
         }
@@ -132,21 +113,6 @@ public class SmallEnemy extends Enemy {
             }
         } else {
             mod = 0;
-        }
-    }
-
-    private float jumpTimer = 0;
-    private float jumpCondition;
-
-    public void jump(float dt) {
-        jumpTimer += dt;
-        if (enemey1 && jumpTimer > jumpCondition) {
-            lastState = currentState;
-            currentState = State.JUMPING;
-            b2body.setLinearVelocity(b2body.getLinearVelocity().x, 2f);
-            jumpTimer = 0;
-            Random rand = new Random();
-            jumpCondition = rand.nextInt((6 - 1) + 1) + 1;
         }
     }
 }
