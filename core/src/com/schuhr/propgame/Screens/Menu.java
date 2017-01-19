@@ -34,7 +34,7 @@ public class Menu implements Screen {
 
     private PropGame game;
 
-    public Menu(PropGame game){
+    public Menu(PropGame game) {
         this.game = game;
         viewport = new FitViewport(PropGame.V_WIDTH, PropGame.V_HEIGHT, new OrthographicCamera());
         atlas = new TextureAtlas("Visui/uiskin.atlas");
@@ -44,6 +44,7 @@ public class Menu implements Screen {
         game.getMusic().setLooping(true);
         game.getMusic().play();
         game.getMusic().setPosition(7);
+
     }
 
     @Override
@@ -63,7 +64,7 @@ public class Menu implements Screen {
         generator.dispose();
         Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
 
-        Label titleLabel = new Label("The Game of Mare Bear",labelStyle);
+        Label titleLabel = new Label("The Game of Mare Bear", labelStyle);
 
         //Create buttons
         TextButton playButton = new TextButton("Play", skin, "blue");
@@ -71,20 +72,20 @@ public class Menu implements Screen {
         TextButton exitButton = new TextButton("Exit", skin, "blue");
 
         //Add listeners to buttons
-        playButton.addListener(new ClickListener(){
+        playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.getMusic().stop();
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new LevelsIntro(game));
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new LevelsIntro(game));
             }
         });
-        optionsButton.addListener(new ClickListener(){
+        optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new LevelUnlock(game));
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new LevelUnlock(game));
             }
         });
-        exitButton.addListener(new ClickListener(){
+        exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();

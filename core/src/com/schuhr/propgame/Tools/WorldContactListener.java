@@ -65,10 +65,14 @@ public class WorldContactListener implements ContactListener {
                 break;
             case PropGame.MARY_BIT | PropGame.ENEMY_BIT:
                 if(canContact) {
-                    if (fixA.getFilterData().categoryBits == PropGame.MARY_BIT)
-                        ((Mary) fixA.getUserData()).hit();
-                    else
-                        ((Mary) fixB.getUserData()).hit();
+                    try{
+                        if (fixA.getFilterData().categoryBits == PropGame.MARY_BIT)
+                            ((Mary) fixA.getUserData()).hit();
+                        else
+                            ((Mary) fixB.getUserData()).hit();
+                    }catch(Exception ex){
+                        //Ignore exception here
+                    }
                 }
                 break;
             case PropGame.ENEMY_BIT:
