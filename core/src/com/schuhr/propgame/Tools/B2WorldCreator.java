@@ -38,10 +38,6 @@ public class B2WorldCreator {
         ObjectIndexes(int id) {
             this.id = id;
         }
-
-        public int getValue() {
-            return id;
-        }
     }
 
     private Array<RedEnemy> redEnemies;
@@ -124,6 +120,7 @@ public class B2WorldCreator {
                     blueEnemies.add(new BlueEnemy(screen, rect.getX() / PropGame.PPM, rect.getY() / PropGame.PPM));
                 isRed = !isRed;
         }
+        shape.dispose();
     }
 
     public Array<BlueEnemy> getBlueEnemies() {
