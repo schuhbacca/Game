@@ -180,7 +180,7 @@ public class Levels implements Screen {
 
     public void update(float dt) {
         handleInput(dt);
-        world.step(1 / 45f, 6, 2);
+        world.step(1 / 35f, 6, 2);
         player.update(dt);
         for (Enemy enemy : creator.getRedEnemies()) {
             enemy.update(dt);
