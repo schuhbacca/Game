@@ -40,10 +40,12 @@ public class Menu implements Screen {
         atlas = new TextureAtlas("Visui/uiskin.atlas");
         skin = new Skin(Gdx.files.internal("Visui/uiskin.json"), atlas);
         stage = new Stage(viewport, ((PropGame) game).batch);
-        game.setMusic(game.manager.get(PropGame.Songs.FoolsLove.getValue(), Music.class));
-        game.getMusic().setLooping(true);
-        game.getMusic().play();
-        game.getMusic().setPosition(7);
+        if(game.getMusic() == null || !game.getMusic().isPlaying()) {
+            game.setMusic(game.manager.get(PropGame.Songs.FoolsLove.getValue(), Music.class));
+            game.getMusic().setLooping(true);
+            game.getMusic().play();
+            game.getMusic().setPosition(7);
+        }
 
     }
 

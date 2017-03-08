@@ -30,8 +30,7 @@ public class B2WorldCreator {
         Coins(4),
         Bricks(5),
         LittleEnemy(6),
-        Turtles(7),
-        End(8);
+        End(7);
 
         private final int id;
 

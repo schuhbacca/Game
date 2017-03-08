@@ -14,11 +14,11 @@ import com.schuhr.propgame.Screens.*;
 
 public class Coin extends InteractiveTileObject {
     private static TiledMapTileSet tileSet;
-    private final int BLANK_COIN = 28;
+    private final int BLANK_COIN = 7472;
 
     public Coin(Levels screen, Rectangle bounds) {
         super(screen, bounds);
-        tileSet = map.getTileSets().getTileSet("tileset_gutter");
+        tileSet = map.getTileSets().getTileSet("Tileset");
         fixture.setUserData(this);
         setCategoryFilter(PropGame.COIN_BIT);
     }
