@@ -73,7 +73,7 @@ public class Levels implements Screen {
 
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        world = new World(new Vector2(0, -8.2f), true);
+        world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
         creator = new B2WorldCreator(this);
@@ -180,7 +180,7 @@ public class Levels implements Screen {
 
     public void update(float dt) {
         handleInput(dt);
-        world.step(1 / 35f, 6, 2);
+        world.step(1 / 90f, 6, 2);
         player.update(dt);
         for (Enemy enemy : creator.getRedEnemies()) {
             enemy.update(dt);
@@ -203,12 +203,12 @@ public class Levels implements Screen {
     @Override
     public void render(float delta) {
         update(delta);
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
 
-        b2dr.render(world, gameCam.combined);
+        //b2dr.render(world, gameCam.combined);
 
         if (isAndroid)
             controller.draw();
