@@ -154,26 +154,29 @@ public class Levels implements Screen {
     public void handleInput(float dt) {
         if (player.currentState != Mary.State.DEAD) {
             //Controls for desktop
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+            if(!isAndroid) {
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
+                    player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
+                    player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+                }
+                if (Gdx.input.justTouched()) {
+                    player.jump();
+                }
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
-            }
-            if (Gdx.input.justTouched() && !isAndroid) {
-                player.jump();
-            }
-
-            //Controls for Android
-            if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2) {
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            }
-            if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2) {
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
-            }
-            if (controller.isCanJump()) {
-                player.jump();
-                controller.setCanJump(false);
+            else {
+                //Controls for Android
+                if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2) {
+                    player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+                }
+                if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -2) {
+                    player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+                }
+                if (controller.isCanJump()) {
+                    player.jump();
+                    controller.setCanJump(false);
+                }
             }
         }
     }
