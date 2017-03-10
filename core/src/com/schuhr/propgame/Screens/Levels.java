@@ -2,6 +2,7 @@ package com.schuhr.propgame.Screens;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.schuhr.propgame.PropGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -45,6 +46,8 @@ public class Levels implements Screen {
     protected Box2DDebugRenderer b2dr;
     protected B2WorldCreator creator;
 
+    FPSLogger logger;
+
     protected Mary player;
 
     protected Viewport gamePort;
@@ -87,6 +90,8 @@ public class Levels implements Screen {
         SetMusic();
 
         isAndroid = (Gdx.app.getType() == Application.ApplicationType.Android);
+
+        logger = new FPSLogger();
     }
 
     public TextureAtlas getAtlas() {
@@ -182,6 +187,7 @@ public class Levels implements Screen {
     }
 
     public void update(float dt) {
+        logger.log();
         handleInput(dt);
         world.step(1 / 90f, 6, 2);
         player.update(dt);
