@@ -219,9 +219,6 @@ public class Levels implements Screen {
 
         //b2dr.render(world, gameCam.combined);
 
-        if (isAndroid)
-            controller.draw();
-
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
         player.draw(game.batch);
@@ -232,6 +229,9 @@ public class Levels implements Screen {
             enemy.draw(game.batch);
         }
         game.batch.end();
+
+        if (isAndroid)
+            controller.draw();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
