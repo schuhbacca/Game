@@ -37,6 +37,10 @@ public class BlueEnemy extends Enemy {
         setBounds(getX(), getY(), 16 / PropGame.PPM, 16 / PropGame.PPM);
         setToDestroy = false;
         destroyed = false;
+        //overwrite velocity
+        Random rand = new Random();
+        int  n = rand.nextInt(3) + 1;
+        velocity = new Vector2((float)Math.round(n),0);
     }
 
     public void update(float dt) {

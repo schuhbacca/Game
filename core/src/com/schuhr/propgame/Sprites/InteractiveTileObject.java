@@ -22,7 +22,6 @@ public abstract class InteractiveTileObject {
     protected PropGame game;
     protected World world;
     protected TiledMap map;
-    protected TiledMapTile tile;
     protected Rectangle bounds;
     protected Body body;
     protected Fixture fixture;

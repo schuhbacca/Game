@@ -87,7 +87,8 @@ public class Levels implements Screen {
 
         controller = new Controller(game);
 
-        SetMusic();
+        if (!game.getMusic().isPlaying())
+            SetMusic();
 
         isAndroid = (Gdx.app.getType() == Application.ApplicationType.Android);
 
@@ -128,6 +129,7 @@ public class Levels implements Screen {
                 break;
             case 5://Mary's Place
                 game.setMusic(game.manager.get(Songs.YouBelongWithMe.getValue(), Music.class));
+                skipForward = 10;
                 break;
             case 6://Visit to St. Clair
                 game.setMusic(game.manager.get(Songs.Austin.getValue(), Music.class));
@@ -159,7 +161,7 @@ public class Levels implements Screen {
     public void handleInput(float dt) {
         if (player.currentState != Mary.State.DEAD) {
             //Controls for desktop
-            if(!isAndroid) {
+            if (!isAndroid) {
                 if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
                     player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
                 }
@@ -169,8 +171,7 @@ public class Levels implements Screen {
                 if (Gdx.input.justTouched()) {
                     player.jump();
                 }
-            }
-            else {
+            } else {
                 //Controls for Android
                 if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 2) {
                     player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
@@ -236,7 +237,6 @@ public class Levels implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         if (gameOver()) {
-            game.getMusic().stop();
             game.setScreen(new GameOverScreen(game));
             dispose();
         }
