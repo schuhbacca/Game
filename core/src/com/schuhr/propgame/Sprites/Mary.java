@@ -174,7 +174,7 @@ public class Mary extends Sprite {
 
     public void jump() {
         if (currentState != State.JUMPING) {
-            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+            b2body.applyLinearImpulse(new Vector2(0, 3.5f), b2body.getWorldCenter(), true);
             currentState = State.JUMPING;
         }
     }
