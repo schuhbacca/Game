@@ -41,8 +41,6 @@ public class Controller {
         stage = new Stage(viewport, game.batch);
         Gdx.input.setInputProcessor(stage);
 
-        Group group = new Group();
-
         Table table = new Table();
         stage.setDebugAll(true);
 
