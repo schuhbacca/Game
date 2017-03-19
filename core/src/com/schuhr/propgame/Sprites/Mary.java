@@ -154,7 +154,6 @@ public class Mary extends Sprite {
     }
 
     public void hit() {
-        screen.getGame().manager.get("audio/music/mario_music.ogg", Music.class).stop();
         screen.getGame().manager.get("audio/sounds/mariodie.wav", Sound.class).play();
         maryIsDead = true;
         Filter filter = new Filter();

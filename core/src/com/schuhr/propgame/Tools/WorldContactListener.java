@@ -72,6 +72,8 @@ public class WorldContactListener implements ContactListener {
                             ((Mary) fixB.getUserData()).hit();
                     }catch(Exception ex){
                         //Ignore exception here
+                        String s = ex.getMessage();
+                        s.charAt(0);
                     }
                 }
                 break;
