@@ -23,8 +23,6 @@ public class BlueEnemy extends Enemy {
     private Animation walkAnimation;
     private boolean setToDestroy;
     private boolean destroyed;
-    private float mod;
-    private boolean enemey1;
 
     public BlueEnemy(Levels screen, float x, float y) {
         super(screen, x, y);
@@ -108,15 +106,4 @@ public class BlueEnemy extends Enemy {
         setToDestroy = true;
     }
 
-    public void getUnstuck(float dt) {
-        if ((b2body.getLinearVelocity().x == 0)) {
-            mod += dt;
-            if (mod > .5) {
-                reverseVelocity(true, false);
-                mod = 0;
-            }
-        } else {
-            mod = 0;
-        }
-    }
 }

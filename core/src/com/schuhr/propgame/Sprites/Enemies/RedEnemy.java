@@ -24,7 +24,6 @@ public class RedEnemy extends Enemy {
     private Animation walkAnimation;
     private boolean setToDestroy;
     private boolean destroyed;
-    private float mod;
 
     public RedEnemy(Levels screen, float x, float y) {
         super(screen, x, y);
@@ -108,21 +107,8 @@ public class RedEnemy extends Enemy {
         setToDestroy = true;
     }
 
-    public void getUnstuck(float dt) {
-        if ((b2body.getLinearVelocity().x == 0)) {
-            mod += dt;
-            if (mod > .5) {
-                reverseVelocity(true, false);
-                mod = 0;
-            }
-        } else {
-            mod = 0;
-        }
-    }
-
     private float jumpTimer = 0;
     private float jumpCondition;
-    private float stateTimer = 0;
 
     public void move(float dt) {
         switch (currentState) {

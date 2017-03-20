@@ -15,6 +15,7 @@ public abstract class Enemy extends Sprite {
     protected Levels screen;
     public Body b2body;
     Vector2 velocity;
+    private float mod;
 
     public enum State {WALKING, JUMPING, DEAD, FALLING}
 
@@ -42,5 +43,17 @@ public abstract class Enemy extends Sprite {
             velocity.x = -velocity.x;
         if(y)
             velocity.y = -velocity.y;
+    }
+
+    public void getUnstuck(float dt) {
+        if ((b2body.getLinearVelocity().x == 0)) {
+            mod += dt;
+            if (mod > .5) {
+                reverseVelocity(true, false);
+                mod = 0;
+            }
+        } else {
+            mod = 0;
+        }
     }
 }
