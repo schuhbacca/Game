@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="275" height="13" tilewidth="16" tileheight="16" nextobjectid="100">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="275" height="13" tilewidth="16" tileheight="16" nextobjectid="103">
  <tileset firstgid="1" name="Tileset" tilewidth="16" tileheight="16" tilecount="16384" columns="256">
   <image source="Tileset.png" width="4096" height="1024"/>
  </tileset>
@@ -141,5 +141,8 @@
   <object id="97" x="4144" y="176" width="16" height="16"/>
   <object id="98" x="3936" y="176" width="16" height="16"/>
  </objectgroup>
- <objectgroup name="End"/>
+ <objectgroup name="End">
+  <object id="101" x="4336" y="0" width="64" height="64"/>
+  <object id="102" x="4384" y="64" width="16" height="128"/>
+ </objectgroup>
 </map>
