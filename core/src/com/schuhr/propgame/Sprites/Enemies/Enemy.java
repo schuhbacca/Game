@@ -1,9 +1,11 @@
 package com.schuhr.propgame.Sprites.Enemies;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.schuhr.propgame.PropGame;
 import com.schuhr.propgame.Screens.Levels;
 
 /**
@@ -16,6 +18,7 @@ public abstract class Enemy extends Sprite {
     public Body b2body;
     Vector2 velocity;
     private float mod;
+    protected boolean setToDestroy;
 
     public enum State {WALKING, JUMPING, DEAD, FALLING}
 
@@ -25,9 +28,9 @@ public abstract class Enemy extends Sprite {
     Enemy(Levels screen, float x, float y) {
         this.world = screen.getWorld();
         this.screen = screen;
-        setPosition(x, y);
+        setPosition(x, y + 0.0799f);
         defineEnemy();
-        velocity = new Vector2(1f,0);
+        velocity = new Vector2(-1f, 0);
         b2body.setActive(false);
         currentState = State.WALKING;
     }
@@ -38,10 +41,10 @@ public abstract class Enemy extends Sprite {
 
     public abstract void update(float dt);
 
-    public void reverseVelocity(boolean x, boolean y){
-        if(x)
+    public void reverseVelocity(boolean x, boolean y) {
+        if (x)
             velocity.x = -velocity.x;
-        if(y)
+        if (y)
             velocity.y = -velocity.y;
     }
 
@@ -55,5 +58,16 @@ public abstract class Enemy extends Sprite {
         } else {
             mod = 0;
         }
+    }
+
+    private float lastY = 100;
+
+    public void CheckIfBelowLevel() {
+        if (b2body.isActive())
+            if (b2body.getPosition().y < .22878893 && (b2body.getPosition().y - lastY)  > -0.00123) {
+                currentState = State.FALLING;
+            }
+
+        lastY = b2body.getPosition().y;
     }
 }

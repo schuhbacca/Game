@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
 import com.schuhr.propgame.PropGame;
 import com.schuhr.propgame.Screens.Levels;
 
@@ -22,7 +23,6 @@ public class RedEnemy extends Enemy {
 
     private float stateTime;
     private Animation walkAnimation;
-    private boolean setToDestroy;
     private boolean destroyed;
 
     public RedEnemy(Levels screen, float x, float y) {
@@ -122,8 +122,15 @@ public class RedEnemy extends Enemy {
                 if (b2body.getLinearVelocity().y == 0 && b2body.getPosition().y < (33/PropGame.PPM)) {
                     currentState = State.WALKING;
                 }
+
                 break;
             case DEAD:
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        setToDestroy = true;
+                    }
+                }, 1f);
                 break;
             default:
                 currentState = State.WALKING;

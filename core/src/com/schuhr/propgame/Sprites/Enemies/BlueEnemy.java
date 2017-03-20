@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
 import com.schuhr.propgame.PropGame;
 import com.schuhr.propgame.Screens.Levels;
 
@@ -21,7 +22,6 @@ import java.util.Random;
 public class BlueEnemy extends Enemy {
     private float stateTime;
     private Animation walkAnimation;
-    private boolean setToDestroy;
     private boolean destroyed;
 
     public BlueEnemy(Levels screen, float x, float y) {
@@ -39,6 +39,7 @@ public class BlueEnemy extends Enemy {
         Random rand = new Random();
         int  n = rand.nextInt(3) + 1;
         velocity = new Vector2((float)Math.round(n),0);
+        currentState = State.WALKING;
     }
 
     public void update(float dt) {
@@ -53,9 +54,33 @@ public class BlueEnemy extends Enemy {
             //Checks to see if the enemy is stuck somehwere and if they are reverse their direction
             getUnstuck(dt);
 
-            b2body.setLinearVelocity(velocity);
+            //The movement logic, and logic for falling off and edge correctly
+            move();
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion(walkAnimation.getKeyFrame(stateTime, true));
+
+        }
+    }
+
+    public void move(){
+        switch(currentState){
+            case WALKING:
+                b2body.setLinearVelocity(velocity);
+                CheckIfBelowLevel();
+                break;
+            case FALLING:
+                Vector2 help = new Vector2(0,0.1f);
+                b2body.applyLinearImpulse(help, b2body.getWorldCenter(), true);
+                currentState = State.DEAD;
+                break;
+            case DEAD:
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        setToDestroy = true;
+                    }
+                }, 1f);
+                break;
         }
     }
 
