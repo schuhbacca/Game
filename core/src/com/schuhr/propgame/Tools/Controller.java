@@ -42,7 +42,6 @@ public class Controller {
         Gdx.input.setInputProcessor(stage);
 
         Table table = new Table();
-        stage.setDebugAll(true);
 
         Actor screenActor = CreateScreenActor();
 

@@ -146,6 +146,5 @@
  <objectgroup name="End">
   <object id="127" x="2336" y="0" width="64" height="64"/>
   <object id="130" x="2384" y="64" width="16" height="128"/>
-  <object id="131" x="176" y="-16"/>
  </objectgroup>
 </map>
