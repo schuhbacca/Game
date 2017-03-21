@@ -55,7 +55,11 @@ public class LevelsIntro implements Screen {
     public void render(float delta) {
         if (Gdx.input.justTouched()) {
             try{
-                game.setScreen(new Levels((PropGame) game));
+                if(((PropGame) game).GetLevel() == 12 && ((PropGame) game).GetLast() != 1) {
+                    throw new Exception();
+                }else {
+                    game.setScreen(new Levels((PropGame) game));
+                }
             }catch (Exception ex){
                 levelLabel.setText("Unable to play level.");
             }

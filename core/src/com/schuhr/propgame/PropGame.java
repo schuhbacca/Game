@@ -76,6 +76,8 @@ public class PropGame extends Game {
         return prefs.getInteger("Level");
     }
 
+    public int GetLast(){ return prefs.getInteger("Last");}
+
     @Override
     public void render() {
         super.render();

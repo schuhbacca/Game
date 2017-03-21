@@ -118,6 +118,11 @@ public class LevelUnlock implements Screen, InputProcessor {
             case 304:
                 ShowDialog();
                 break;
+            case 1234:
+                int level =prefs.getInteger("Level");
+                level +=1;
+                prefs.putInteger("Level", level);
+                prefs.flush();
             default:
                 break;
         }
@@ -139,8 +144,10 @@ public class LevelUnlock implements Screen, InputProcessor {
                         System.out.println("Chosen: " + object);
                         if(object.equals(true)){
                             prefs.putInteger("Last", 1);
+                            prefs.flush();
                         }else{
                             prefs.putInteger("Last", 0);
+                            prefs.flush();
                         }
                     }
                 };
