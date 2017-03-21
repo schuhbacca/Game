@@ -128,26 +128,31 @@ public class Levels implements Screen {
                 game.setMusic(game.manager.get(Songs.Saviour.getValue(), Music.class));
                 break;
             case 5://Mary's Place
-                game.setMusic(game.manager.get(Songs.YouBelongWithMe.getValue(), Music.class));
-                skipForward = 10;
+                game.setMusic(game.manager.get(Songs.AMomentLikeThis.getValue(), Music.class));
+                skipForward = 7;
                 break;
             case 6://Visit to St. Clair
                 game.setMusic(game.manager.get(Songs.Austin.getValue(), Music.class));
+                skipForward = 7;
                 break;
             case 7://Europe
                 game.setMusic(game.manager.get(Songs.IveBeenEverywhere.getValue(), Music.class));
                 break;
             case 8://Labor Day
                 game.setMusic(game.manager.get(Songs.BonfireHeart.getValue(), Music.class));
+                skipForward = 4;
                 break;
             case 9://Visit St. Joe
                 game.setMusic(game.manager.get(Songs.HeyThereDelilah.getValue(), Music.class));
+                skipForward = 9;
                 break;
             case 10://Christmas
                 game.setMusic(game.manager.get(Songs.PerfectForMe.getValue(), Music.class));
+                skipForward = 3;
                 break;
             case 11://Picture Level
                 game.setMusic(game.manager.get(Songs.ImYours.getValue(), Music.class));
+                skipForward = 24;
                 break;
             case 12://Proposal
                 game.setMusic(game.manager.get(Songs.BestDayOfMyLife.getValue(), Music.class));

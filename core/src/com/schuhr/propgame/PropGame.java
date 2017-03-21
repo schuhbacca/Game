@@ -91,7 +91,7 @@ public class PropGame extends Game {
     public enum Songs {
         Saviour("audio/music/Saviour.mp3"),
         Sloth("audio/music/SlothsRevenge.mp3"),
-        YouBelongWithMe("audio/music/YouBelongWithMe.mp3"),
+        AMomentLikeThis("audio/music/AMomentLikeThis.mp3"),
         Austin("audio/music/Austin.mp3"),
         IveBeenEverywhere("audio/music/IveBeenEverywhere.mp3"),
         BonfireHeart("audio/music/BonfireHeart.mp3"),

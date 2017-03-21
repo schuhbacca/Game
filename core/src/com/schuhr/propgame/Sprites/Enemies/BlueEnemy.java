@@ -66,7 +66,7 @@ public class BlueEnemy extends Enemy {
         switch(currentState){
             case WALKING:
                 b2body.setLinearVelocity(velocity);
-                CheckIfBelowLevel();
+                //CheckIfBelowLevel();
                 break;
             case FALLING:
                 Vector2 help = new Vector2(0,0.1f);
