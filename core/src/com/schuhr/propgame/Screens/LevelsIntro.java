@@ -2,6 +2,7 @@ package com.schuhr.propgame.Screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,12 +19,12 @@ import com.schuhr.propgame.PropGame;
  * Created by schuhr on 1/4/2017.
  */
 
-public class LevelsIntro implements Screen {
+public class LevelsIntro implements Screen, InputProcessor {
     private Viewport viewport;
     private Stage stage;
     Label levelLabel;
 
-    private Game game;
+    private PropGame game;
 
     public LevelsIntro(PropGame game) {
         this.game = game;
@@ -41,6 +42,9 @@ public class LevelsIntro implements Screen {
         table.add(levelLabel).expandX();
         table.row();
         table.add(playAgainLabel).expandX().padTop(10f);
+
+        Gdx.input.setInputProcessor(this);
+        Gdx.input.setCatchBackKey(true);
 
         stage.addActor(table);
     }
@@ -92,5 +96,47 @@ public class LevelsIntro implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        ((PropGame) game).setScreen(new Menu(game));
+        dispose();
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

@@ -62,12 +62,4 @@ public abstract class Enemy extends Sprite {
 
     private float lastY = 100;
 
-    public void CheckIfBelowLevel() {
-        if (b2body.isActive())
-            if (b2body.getPosition().y < .22878893 && (b2body.getPosition().y - lastY)  > -0.00123) {
-                currentState = State.FALLING;
-            }
-
-        lastY = b2body.getPosition().y;
-    }
 }

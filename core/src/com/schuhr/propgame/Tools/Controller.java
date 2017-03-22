@@ -20,7 +20,7 @@ import com.schuhr.propgame.PropGame;
 
 public class Controller {
     Viewport viewport;
-    Stage stage;
+    public Stage stage;
     boolean leftPressed;
     boolean rightPressed;
 
@@ -39,7 +39,6 @@ public class Controller {
         cam = new OrthographicCamera();
         viewport = new FitViewport(PropGame.V_WIDTH, PropGame.V_HEIGHT, cam);
         stage = new Stage(viewport, game.batch);
-        Gdx.input.setInputProcessor(stage);
 
         Table table = new Table();
 
