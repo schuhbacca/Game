@@ -201,7 +201,7 @@ public class LevelUnlock implements Screen, InputProcessor {
         numberTable.top();
         //Create buttons
         TextButton[] buttons = new TextButton[12];
-        for (int i = 0; i < 12; i++) {
+        for (int i = 1; i < 12; i++) {
             buttons[i] = new TextButton(String.valueOf(i), skin, "default");
             //Add listeners to buttons
             final int h = i;
@@ -215,7 +215,7 @@ public class LevelUnlock implements Screen, InputProcessor {
             });
 
             dialog.hide();
-            if (i % 3 == 0) {
+            if (i % 3 == 1) {
                 numberTable.row();
             }
             numberTable.add(buttons[i]).padRight(10f).padTop(10f);
