@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -114,15 +115,15 @@ public class LevelUnlock implements Screen, InputProcessor {
             case 8765:
                 prefs.putInteger("Level", 1);
                 prefs.flush();
+                passcode = "";
                 break;
             case 304:
                 ShowDialog();
+                passcode = "";
                 break;
             case 1234:
-                int level =prefs.getInteger("Level");
-                level +=1;
-                prefs.putInteger("Level", level);
-                prefs.flush();
+                ShowNumberChooseDialog();
+                passcode = "";
             default:
                 break;
         }
@@ -132,20 +133,20 @@ public class LevelUnlock implements Screen, InputProcessor {
     }
 
     //Show a dialog box to confirm going to the last level
-    public void ShowDialog(){
+    public void ShowDialog() {
         Label label = new Label("Unlock final level?", skin);
         label.setWrap(true);
         label.setFontScale(.8f);
         label.setAlignment(Align.center);
 
-        Dialog dialog =
+        final Dialog dialog =
                 new Dialog("", skin, "default") {
-                    protected void result (Object object) {
+                    protected void result(Object object) {
                         System.out.println("Chosen: " + object);
-                        if(object.equals(true)){
+                        if (object.equals(true)) {
                             prefs.putInteger("Last", 1);
                             prefs.flush();
-                        }else{
+                        } else {
                             prefs.putInteger("Last", 0);
                             prefs.flush();
                         }
@@ -165,6 +166,72 @@ public class LevelUnlock implements Screen, InputProcessor {
         dialog.invalidateHierarchy();
         dialog.invalidate();
         dialog.layout();
+        dialog.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                if (x < 0 || x > dialog.getWidth() || y < 0 || y > dialog.getHeight()){
+                    dialog.hide();
+                    return true;
+                }
+                return false;
+            }
+        });
+        dialog.show(stage);
+    }
+
+    public void ShowNumberChooseDialog() {
+        Label label = new Label("Choose Level", skin);
+        label.setWrap(true);
+        label.setFontScale(.8f);
+        label.setAlignment(Align.center);
+
+        final Dialog dialog =
+                new Dialog("", skin, "default") {
+                    protected void result(Object object) {
+                        //Handle the result in the button event listener
+                    }
+                };
+
+        dialog.padTop(10f).padBottom(10f);
+        dialog.getContentTable().add(label).width(200f).row();
+        dialog.getButtonTable().padTop(10f);
+
+
+        Table numberTable = new Table();
+        //numberTable.setFillParent(true);
+        numberTable.top();
+        //Create buttons
+        TextButton[] buttons = new TextButton[12];
+        for (int i = 0; i < 12; i++) {
+            buttons[i] = new TextButton(String.valueOf(i), skin, "default");
+            //Add listeners to buttons
+            final int h = i;
+            buttons[i].addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    prefs.putInteger("Level", h);
+                    prefs.flush();
+                    dialog.hide();
+                }
+            });
+
+            dialog.hide();
+            if (i % 3 == 0) {
+                numberTable.row();
+            }
+            numberTable.add(buttons[i]).padRight(10f).padTop(10f);
+        }
+
+        dialog.getButtonTable().add(numberTable);
+        dialog.pack();
+        dialog.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                if (x < 0 || x > dialog.getWidth() || y < 0 || y > dialog.getHeight()){
+                    dialog.hide();
+                    return true;
+                }
+                return false;
+            }
+        });
         dialog.show(stage);
     }
 
