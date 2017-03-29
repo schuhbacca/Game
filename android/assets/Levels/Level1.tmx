@@ -3,9 +3,12 @@
  <tileset firstgid="1" name="Tileset" tilewidth="16" tileheight="16" tilecount="16384" columns="256">
   <image source="Tileset.png" width="4096" height="1024"/>
  </tileset>
+ <tileset firstgid="16385" name="TilesetExtra" tilewidth="16" tileheight="16" tilecount="1024" columns="64">
+  <image source="TilesetExtra.png" width="1024" height="256"/>
+ </tileset>
  <layer name="Background" width="150" height="13">
   <data encoding="base64" compression="zlib">
-   eJztwzENAAAMA6AKmYj6V1cPuyGhl1RVVVVVVVVVnwcad0MH
+   eJzt1rcRg0AARNErRAnCpZQAdIKvC18Xvg39Hi5gbrTByzf4wSYfYxL5C15qzBc+AoSIEKfvbxN3FfRTokKNBi06dSUWevoZMGLCjAWruhILG/3sOHDiwo1HXYkFL+NfwUeAEBHi7P1t4q6CfkpUqNGgRaeuxEJPPwNGTJixYFVXYmGjnx0HTly48agrseDl/Cv4CBAiQpy/v03cVdBPiQo1GrTo1JVY6OlnwIgJMxas6kosbPSz48CJCzcedSWO+AFUV2q7
   </data>
  </layer>
  <layer name="Graphics" width="150" height="13">

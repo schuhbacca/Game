@@ -137,8 +137,8 @@ public class Levels implements Screen, InputProcessor {
                 game.setMusic(game.manager.get(Songs.Saviour.getValue(), Music.class));
                 break;
             case 5://Mary's Place
-                game.setMusic(game.manager.get(Songs.AMomentLikeThis.getValue(), Music.class));
-                skipForward = 7;
+                game.setMusic(game.manager.get(Songs.WeAreYoung.getValue(), Music.class));
+                skipForward = 8;
                 break;
             case 6://Visit to St. Clair
                 game.setMusic(game.manager.get(Songs.Austin.getValue(), Music.class));
