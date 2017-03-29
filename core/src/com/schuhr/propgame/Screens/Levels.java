@@ -4,7 +4,6 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.FPSLogger;
 import com.schuhr.propgame.PropGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -45,18 +43,13 @@ public class Levels implements Screen, InputProcessor {
 
     //Box2dVariables
     protected World world;
-    protected Box2DDebugRenderer b2dr;
     protected B2WorldCreator creator;
-
-    FPSLogger logger;
 
     protected Mary player;
 
     protected Viewport gamePort;
 
     protected Controller controller;
-
-    protected String levelName;
 
     boolean isAndroid = false;
     boolean hide = false;
@@ -79,7 +72,6 @@ public class Levels implements Screen, InputProcessor {
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0, -10), true);
-        b2dr = new Box2DDebugRenderer();
 
         creator = new B2WorldCreator(this);
 
@@ -100,8 +92,6 @@ public class Levels implements Screen, InputProcessor {
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
         Gdx.input.setCatchBackKey(true);
-
-        logger = new FPSLogger();
     }
 
     public TextureAtlas getAtlas() {
@@ -202,7 +192,6 @@ public class Levels implements Screen, InputProcessor {
     }
 
     public void update(float dt) {
-        logger.log();
         handleInput(dt);
         world.step(1 / 90f, 6, 2);
         player.update(dt);
@@ -231,8 +220,6 @@ public class Levels implements Screen, InputProcessor {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
-
-        //b2dr.render(world, gameCam.combined);
 
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
@@ -294,7 +281,6 @@ public class Levels implements Screen, InputProcessor {
         map.dispose();
         renderer.dispose();
         world.dispose();
-        b2dr.dispose();
         controller.dispose();
         hud.dispose();
     }
