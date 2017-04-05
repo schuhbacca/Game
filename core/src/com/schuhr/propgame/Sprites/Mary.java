@@ -55,11 +55,10 @@ public class Mary extends Sprite {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("Mary"), i * 16, 0, 16, 16));
         }
         maryRun = new Animation(0.1f, frames);
-        /*frames.clear();
 
-        for (int i = 4; i < 6; i++) {
-            frames.add(new TextureRegion(getTexture(), i * 16, 0, 16, 16));
-        }*/
+        frames.clear();
+        frames.add(new TextureRegion(screen.getAtlas().findRegion("Mary"), 48, 0, 16, 16));
+
         maryJump = new Animation(0.3f, frames);
 
         maryStand = new TextureRegion(screen.getAtlas().findRegion("Mary"), 0, 0, 16, 16);
@@ -161,10 +160,6 @@ public class Mary extends Sprite {
         for (Fixture fixture : b2body.getFixtureList())
             fixture.setFilterData(filter);
         b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
-    }
-
-    public boolean isDead() {
-        return maryIsDead;
     }
 
     public float getStateTimer() {

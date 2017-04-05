@@ -287,9 +287,12 @@ public class Levels implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        ((PropGame) game).setScreen(new Menu(game));
-        dispose();
-        return false;
+        if (keycode == Input.Keys.BACK) {
+            ((PropGame) game).setScreen(new Menu(game));
+            dispose();
+            return true;
+        }
+        return true;
     }
 
     @Override
@@ -304,7 +307,7 @@ public class Levels implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return  false;
+        return false;
     }
 
     @Override
