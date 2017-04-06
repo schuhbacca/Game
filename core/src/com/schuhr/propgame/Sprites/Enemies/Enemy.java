@@ -59,7 +59,4 @@ public abstract class Enemy extends Sprite {
             mod = 0;
         }
     }
-
-    private float lastY = 100;
-
 }

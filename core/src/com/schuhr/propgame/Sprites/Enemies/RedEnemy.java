@@ -119,7 +119,7 @@ public class RedEnemy extends Enemy {
                 jump();
                 break;
             case FALLING:
-                if (b2body.getLinearVelocity().y == 0 && b2body.getPosition().y < (33/PropGame.PPM)) {
+                if (b2body.getLinearVelocity().y == 0) {
                     currentState = State.WALKING;
                 }
 
